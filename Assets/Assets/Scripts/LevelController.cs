@@ -6,11 +6,11 @@ public class LevelController : MonoBehaviour
 {
     public static LevelController Instance { get; private set; }
 
-    public List<Window> windows = new List<Window>();
+    public Window playerWindow;
 
-    public Window currentWindow;
+    public GameObject Player;
 
-    public PlayerController Player;
+    private PlayerController playerController;
 
     public bool player_isGrounded;
 
@@ -19,16 +19,29 @@ public class LevelController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }       
+
+    private void Start()
+    {
+        print(Player.name);
+        playerController = Player.GetComponent<PlayerController>();    
     }
 
-    public void SetCurrentWindow(Window window)
+    public void SetCurrentWindow(GameObject window)
     {
-        currentWindow = window;
+        if (playerWindow != null) playerWindow.canDrag = true;
+        playerWindow = window.GetComponent<Window>();
+    }
+
+    public void NullCurrentWindow()
+    {
+        if (playerWindow != null) playerWindow.canDrag = true;
+        playerWindow = null;
     }
 
     private void Update()
     {
-        if(Player.FrameInput.x == 0)
+        if(playerController.FrameInput.x == 0)
         {
             player_isMoving = false;
         }
@@ -37,16 +50,16 @@ public class LevelController : MonoBehaviour
             player_isMoving = true;
         }
 
-        player_isGrounded = Player._grounded;
+        player_isGrounded = playerController._grounded;
 
 
-        if (currentWindow == null) return;
+        if (playerWindow == null) return;
         if (!player_isGrounded || player_isMoving) 
-        { 
-            currentWindow.canDrag = false;
+        {
+            playerWindow.canDrag = false;
         } else
         {
-            currentWindow.canDrag = true;
+            playerWindow.canDrag = true;
         }
     }
 

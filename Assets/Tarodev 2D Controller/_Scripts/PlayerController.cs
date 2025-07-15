@@ -36,11 +36,7 @@ namespace TarodevController
             _col = GetComponent<CapsuleCollider2D>();
 
             _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
-        }
-
-        private void Start()
-        {
-            LevelController.Instance.Player = this;
+            LevelController.Instance.Player = this.gameObject;
         }
 
         private void Update()

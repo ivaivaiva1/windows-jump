@@ -1,18 +1,78 @@
-using System.Collections;
 using System.Collections.Generic;
+using TarodevController;
 using UnityEngine;
 
 public class PlayerWindow : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Collider2D col;
+
+    private void Awake()
     {
-        
+        col = GetComponent<Collider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.CompareTag("Window"))
+        {
+            Window window = collision.GetComponent<Window>();
+            if (window != null && window.isAlive)
+            {
+                transform.SetParent(collision.transform);
+                LevelController.Instance.SetCurrentWindow(collision.gameObject);
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Window"))
+        {
+            if (transform.parent != null)
+            {
+                if (transform.parent == collision.transform)
+                {
+                    transform.SetParent(null);
+                    LevelController.Instance.NullCurrentWindow();
+                }
+            }
+            else
+            {
+                Collider2D[] overlappingWindows = GetOverlappingWindows();
+
+                foreach (var col in overlappingWindows)
+                {
+                    Window window = col.GetComponent<Window>();
+                    if (window != null && window.isAlive)
+                    {
+                        transform.SetParent(col.transform);
+                        LevelController.Instance.SetCurrentWindow(col.gameObject);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private Collider2D[] GetOverlappingWindows()
+    {
+        Collider2D[] results = new Collider2D[10];
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.useTriggers = true;
+        filter.NoFilter();
+
+        int count = col.OverlapCollider(filter, results);
+
+        List<Collider2D> windows = new List<Collider2D>();
+
+        for (int i = 0; i < count; i++)
+        {
+            if (results[i] != null && results[i].CompareTag("Window"))
+            {
+                windows.Add(results[i]);
+            }
+        }
+
+        return windows.ToArray();
     }
 }
