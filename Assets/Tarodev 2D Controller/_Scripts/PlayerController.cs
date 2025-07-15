@@ -36,7 +36,13 @@ namespace TarodevController
             _col = GetComponent<CapsuleCollider2D>();
 
             _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
+            
+        }
+
+        private void Start()
+        {
             LevelController.Instance.Player = this.gameObject;
+            LevelController.Instance.playerController = this;
         }
 
         private void Update()
@@ -62,7 +68,6 @@ namespace TarodevController
 
             if (_frameInput.JumpDown)
             {
-                print("clicou pulo");
                 _jumpToConsume = true;
                 _timeJumpWasPressed = _time;
             }
@@ -144,10 +149,7 @@ namespace TarodevController
             if (!_endedJumpEarly && !_grounded && !_frameInput.JumpHeld && _rb.velocity.y > 0) _endedJumpEarly = true;
 
             if (!_jumpToConsume && !HasBufferedJump) return;
-            print("passou segunda");
 
-            print("_grounded: " + _grounded);
-            print("CanUseCoyote: " + CanUseCoyote);
             if (_grounded || CanUseCoyote) ExecuteJump();
               
             _jumpToConsume = false;
@@ -155,7 +157,6 @@ namespace TarodevController
 
         private void ExecuteJump()
         {
-            print("TO PULANDO");
             _endedJumpEarly = false;
             _timeJumpWasPressed = 0;
             _bufferedJumpUsable = false;

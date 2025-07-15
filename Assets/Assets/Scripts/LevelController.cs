@@ -10,7 +10,7 @@ public class LevelController : MonoBehaviour
 
     public GameObject Player;
 
-    private PlayerController playerController;
+    public PlayerController playerController;
 
     public bool player_isGrounded;
 
@@ -20,12 +20,6 @@ public class LevelController : MonoBehaviour
     {
         Instance = this;
     }       
-
-    private void Start()
-    {
-        print(Player.name);
-        playerController = Player.GetComponent<PlayerController>();    
-    }
 
     public void SetCurrentWindow(GameObject window)
     {
