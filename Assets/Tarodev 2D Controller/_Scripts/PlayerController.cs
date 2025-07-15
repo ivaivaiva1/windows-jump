@@ -38,6 +38,11 @@ namespace TarodevController
             _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
         }
 
+        private void Start()
+        {
+            LevelController.Instance.Player = this;
+        }
+
         private void Update()
         {
             _time += Time.deltaTime;
@@ -81,7 +86,7 @@ namespace TarodevController
         #region Collisions
         
         private float _frameLeftGrounded = float.MinValue;
-        private bool _grounded;
+        public bool _grounded;
 
         private void CheckCollisions()
         {
@@ -209,14 +214,7 @@ namespace TarodevController
 
         #endregion
 
-        //private void ApplyMovement() => _rb.velocity = _frameVelocity;
-
-        private void ApplyMovement()
-        {
-            // Move na direção relativa ao objeto pai (ex: window)
-            Vector2 worldVelocity = transform.parent.TransformDirection(_frameVelocity);
-            _rb.velocity = worldVelocity;
-        }
+        private void ApplyMovement() => _rb.velocity = _frameVelocity;
 
 #if UNITY_EDITOR
         private void OnValidate()

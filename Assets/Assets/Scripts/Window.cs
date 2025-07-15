@@ -4,29 +4,34 @@ using UnityEngine;
 
 public class Window : MonoBehaviour
 {
-    private bool dragging = false;
+    public bool canDrag = true;
+    public bool dragging = false;
     private Vector3 offset;
 
-    // Update is called once per frame
     void Update()
     {
+        if(!canDrag)
+        {
+            if(dragging) dragging = false;
+            return;
+        }
+
         if (dragging)
         {
-            // Move object, taking into account original offset.
             transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
         }
     }
 
     private void OnMouseDown()
     {
-        // Record the difference between the object's centre, and the clicked point on the camera plane.
+        if (!canDrag) return;
+
         offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         dragging = true;
     }
 
     private void OnMouseUp()
     {
-        // Stop dragging.
         dragging = false;
     }
 }
