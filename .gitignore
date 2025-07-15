@@ -1,0 +1,9 @@
+# Ignora a pasta Library inteira (não deve ser versionada)
+Library/
+
+# Ignora arquivos grandes específicos do burst compiler
+*.dylib
+
+.vs/
+
+Temp/
