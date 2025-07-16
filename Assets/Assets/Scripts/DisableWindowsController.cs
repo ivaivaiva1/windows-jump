@@ -31,7 +31,7 @@ public class DisableWindowsController : MonoBehaviour
             if (!draggingWindow.dragging)
                 continue;
 
-            Bounds draggingBounds = GetExpandedBounds(draggingWindow);
+            Bounds draggingBounds = GetBounds(draggingWindow, true); // com safe zone
 
             foreach (var otherWindow in allWindows)
             {
@@ -41,7 +41,7 @@ public class DisableWindowsController : MonoBehaviour
                 if (disabledWindows.Contains(otherWindow))
                     continue;
 
-                Bounds otherBounds = GetBounds(otherWindow);
+                Bounds otherBounds = GetBounds(otherWindow, false);
 
                 if (draggingBounds.Intersects(otherBounds))
                 {
@@ -62,13 +62,12 @@ public class DisableWindowsController : MonoBehaviour
         }
     }
 
-
     private void CheckForReactivation()
     {
         for (int i = disabledWindows.Count - 1; i >= 0; i--)
         {
             Window window = disabledWindows[i];
-            Bounds boundsA = GetExpandedBounds(window);
+            Bounds boundsA = GetBounds(window, true); // com safe zone
 
             bool isTouchingActiveWindow = false;
 
@@ -77,11 +76,10 @@ public class DisableWindowsController : MonoBehaviour
                 if (otherWindow == window)
                     continue;
 
-                // Ignorar janelas desativadas
                 if (!otherWindow.isAlive)
                     continue;
 
-                Bounds boundsB = GetBounds(otherWindow);
+                Bounds boundsB = GetBounds(otherWindow, false);
 
                 if (boundsA.Intersects(boundsB))
                 {
@@ -90,7 +88,6 @@ public class DisableWindowsController : MonoBehaviour
                 }
             }
 
-            // Se não estiver tocando nenhuma janela ativa, pode reviver
             if (!isTouchingActiveWindow)
             {
                 window.ReviveWindow();
@@ -99,39 +96,43 @@ public class DisableWindowsController : MonoBehaviour
         }
     }
 
-    private float minX = -36f;
-    private float maxX = 36f;
-    private float minY = -20f;
-    private float maxY = 20f;
+    private float minX = -34f;
+    private float maxX = 34f;
+    private float minY = -18f;
+    private float maxY = 18f;
 
     private void LimitWindowsToBounds()
     {
         foreach (var window in allWindows)
         {
-            if (!window.isAlive || !window.dragging) continue;
+            //if (!window.isAlive || !window.dragging) continue;
 
             Vector3 pos = window.transform.position;
+
+            Bounds bounds = GetBounds(window, false);
+            Vector3 size = bounds.size;
+
             bool outOfBounds = false;
 
-            if (pos.x < minX)
+            if (pos.x < minX - size.x / 2f)
             {
-                pos.x = minX;
+                pos.x = minX - size.x / 2f;
                 outOfBounds = true;
             }
-            else if (pos.x > maxX)
+            else if (pos.x > maxX + size.x / 2f)
             {
-                pos.x = maxX;
+                pos.x = maxX + size.x / 2f;
                 outOfBounds = true;
             }
 
-            if (pos.y < minY)
+            if (pos.y < minY - size.y / 2f)
             {
-                pos.y = minY;
+                pos.y = minY - size.y / 2f;
                 outOfBounds = true;
             }
-            else if (pos.y > maxY)
+            else if (pos.y > maxY + size.y / 2f)
             {
-                pos.y = maxY;
+                pos.y = maxY + size.y / 2f;
                 outOfBounds = true;
             }
 
@@ -142,43 +143,17 @@ public class DisableWindowsController : MonoBehaviour
         }
     }
 
-    private void LimitWindowsToScreen()
-    {
-        Camera cam = Camera.main;
-        if (cam == null) return;
-
-        Vector2 screenMin = cam.ViewportToWorldPoint(Vector2.zero);
-        Vector2 screenMax = cam.ViewportToWorldPoint(Vector2.one);
-
-        foreach (var window in allWindows)
-        {
-            if (!window.isAlive) continue;
-
-            Bounds bounds = GetBounds(window);
-            Vector3 pos = window.transform.position;
-            Vector3 size = bounds.extents;
-
-            float clampedX = Mathf.Clamp(pos.x, screenMin.x + size.x, screenMax.x - size.x);
-            float clampedY = Mathf.Clamp(pos.y, screenMin.y + size.y, screenMax.y - size.y);
-
-            window.transform.position = new Vector3(clampedX, clampedY, pos.z);
-        }
-    }
-
-
-    private Bounds GetBounds(Window window)
+    private Bounds GetBounds(Window window, bool withSafeZone)
     {
         Collider2D col = window.GetComponentInChildren<Collider2D>();
-        if (col != null)
-            return col.bounds;
+        if (col == null)
+            return new Bounds(window.transform.position, Vector3.zero);
 
-        return new Bounds(window.transform.position, Vector3.zero);
-    }
+        Bounds bounds = col.bounds;
 
-    private Bounds GetExpandedBounds(Window window)
-    {
-        Bounds bounds = GetBounds(window);
-        bounds.Expand(safeZonePadding);
+        if (withSafeZone)
+            bounds.Expand(safeZonePadding);
+
         return bounds;
     }
 }
