@@ -16,6 +16,8 @@ public class LevelController : MonoBehaviour
 
     public bool player_isMoving;
 
+    public bool isDraggingWindows = false;
+
     private void Awake()
     {
         Instance = this;

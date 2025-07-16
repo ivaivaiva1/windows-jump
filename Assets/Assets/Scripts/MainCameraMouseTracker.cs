@@ -20,6 +20,5 @@ public class MainCameraMouseTracker : MonoBehaviour
     {
         MouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
         MouseWorldPosition.z = 0f;
-        print(MouseWorldPosition);
     }
 }

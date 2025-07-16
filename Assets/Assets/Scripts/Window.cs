@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class Window : MonoBehaviour
 {
+    public int Order;
+    private int initialOrder;
     private List<BoxCollider2D> childBoxColliders = new();
     public List<Collider2D> windowsInContact = new();
 
@@ -19,6 +21,7 @@ public class Window : MonoBehaviour
     {
         PopulateColliders();
         rawImage = GetComponentInChildren<RawImage>(includeInactive: true);
+        initialOrder = Order;
     }
 
     private void Update()
@@ -26,6 +29,7 @@ public class Window : MonoBehaviour
         if (!canDrag)
         {
             if (dragging) dragging = false;
+            LevelController.Instance.isDraggingWindows = false;
             return;
         }
 
@@ -43,14 +47,16 @@ public class Window : MonoBehaviour
         Vector3 clickWorldPos = MainCameraMouseTracker.Instance.MouseWorldPosition;
         offset = transform.position - clickWorldPos;
         dragging = true;
+        LevelController.Instance.isDraggingWindows = true;
     }
 
     private void OnMouseUp()
     {
         dragging = false;
+        LevelController.Instance.isDraggingWindows = false;
     }
 
-    private void KillWindow()
+    public void KillWindow()
     {
         isAlive = false;
 
@@ -65,7 +71,7 @@ public class Window : MonoBehaviour
             col.enabled = false;
     }
 
-    private void ReviveWindow()
+    public void ReviveWindow()
     {
         isAlive = true;
 
@@ -80,32 +86,32 @@ public class Window : MonoBehaviour
             col.enabled = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!collision.CompareTag("Window")) return;
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (!collision.CompareTag("Window")) return;
 
-        if (!windowsInContact.Contains(collision))
-            windowsInContact.Add(collision);
+    //    if (!windowsInContact.Contains(collision))
+    //        windowsInContact.Add(collision);
 
-        if (dragging)
-        {
-            if (LevelController.Instance.playerWindow == this)
-                collision.GetComponent<Window>()?.KillWindow();
-            else
-                KillWindow();
-        }
-    }
+    //    if (dragging)
+    //    {
+    //        if (LevelController.Instance.playerWindow == this)
+    //            collision.GetComponent<Window>()?.KillWindow();
+    //        else
+    //            KillWindow();
+    //    }
+    //}
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (!collision.CompareTag("Window")) return;
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (!collision.CompareTag("Window")) return;
 
-        if (windowsInContact.Contains(collision))
-            windowsInContact.Remove(collision);
+    //    if (windowsInContact.Contains(collision))
+    //        windowsInContact.Remove(collision);
 
-        if (windowsInContact.Count == 0)
-            ReviveWindow();
-    }
+    //    if (windowsInContact.Count == 0)
+    //        ReviveWindow();
+    //}
 
     private void PopulateColliders()
     {
