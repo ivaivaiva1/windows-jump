@@ -69,6 +69,7 @@
     <Compile Include="Assets\Assets\Scripts\MainCameraMouseTracker.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\ScriptableStats.cs" />
     <Compile Include="Assets\Assets\Scripts\MatchRawImageToSprite.cs" />
+    <Compile Include="Assets\Assets\Scripts\WindowsLayerController.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\PlayerAnimator.cs" />
     <Compile Include="Assets\Assets\Scripts\Window.cs" />
   </ItemGroup>

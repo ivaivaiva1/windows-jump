@@ -46,6 +46,7 @@ public class Window : MonoBehaviour
 
         Vector3 clickWorldPos = MainCameraMouseTracker.Instance.MouseWorldPosition;
         offset = transform.position - clickWorldPos;
+        WindowsLayerController.Instance.SetWindowAsTop(this);
         dragging = true;
         LevelController.Instance.isDraggingWindows = true;
     }
@@ -63,7 +64,7 @@ public class Window : MonoBehaviour
         if (rawImage != null)
         {
             Color color = rawImage.color;
-            color.a = 0.8f;
+            color.a = 0.5f;
             rawImage.color = color;
         }
 
@@ -86,33 +87,6 @@ public class Window : MonoBehaviour
             col.enabled = true;
     }
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (!collision.CompareTag("Window")) return;
-
-    //    if (!windowsInContact.Contains(collision))
-    //        windowsInContact.Add(collision);
-
-    //    if (dragging)
-    //    {
-    //        if (LevelController.Instance.playerWindow == this)
-    //            collision.GetComponent<Window>()?.KillWindow();
-    //        else
-    //            KillWindow();
-    //    }
-    //}
-
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    if (!collision.CompareTag("Window")) return;
-
-    //    if (windowsInContact.Contains(collision))
-    //        windowsInContact.Remove(collision);
-
-    //    if (windowsInContact.Count == 0)
-    //        ReviveWindow();
-    //}
-
     private void PopulateColliders()
     {
         childBoxColliders.Clear();
@@ -123,5 +97,20 @@ public class Window : MonoBehaviour
             if (col.gameObject != this.gameObject)
                 childBoxColliders.Add(col);
         }
+    }
+
+    public void SetOrderInLayer(int order)
+    {
+        Order = order;
+
+        // Sprite
+        SpriteRenderer sprite = transform.GetComponent<SpriteRenderer>();
+        if (sprite != null)
+            sprite.sortingOrder = order;
+
+        // Canvas
+        Canvas canvas = GetComponentInChildren<Canvas>(includeInactive: true);
+        if (canvas != null)
+            canvas.sortingOrder = order;
     }
 }

@@ -3417,6 +3417,7 @@ GameObject:
   - component: {fileID: 1607160730}
   - component: {fileID: 1607160731}
   - component: {fileID: 1607160732}
+  - component: {fileID: 1607160733}
   m_Layer: 0
   m_Name: LevelController
   m_TagString: Untagged
@@ -3470,6 +3471,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safeZonePadding: 1
+--- !u!114 &1607160733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607160729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae09324c53105804a89430526f1b1eb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingOrder: 100
+  step: 10
+  allWindows: []
 --- !u!1 &1638951022
 GameObject:
   m_ObjectHideFlags: 0
