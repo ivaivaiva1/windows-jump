@@ -18,8 +18,8 @@ public class DisableWindowsController : MonoBehaviour
         LimitWindowsToBounds();
         CheckForReactivation();
 
-        if (!LevelController.Instance.isDraggingWindows)
-            return;
+        //if (!LevelController.Instance.isDraggingWindows)
+        //    return;
 
         CheckForDeactivation();
     }
