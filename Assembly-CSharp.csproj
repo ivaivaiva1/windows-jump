@@ -63,8 +63,10 @@
     <Compile Include="Assets\Assets\Scripts\DisableWindowsController.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\Player.cs" />
     <Compile Include="Assets\Assets\Scripts\Trampoline.cs" />
+    <Compile Include="Assets\Tarodev 2D Controller\_Scripts\Collectable.cs" />
     <Compile Include="Assets\Assets\Scripts\LevelController.cs" />
     <Compile Include="Assets\Assets\Scripts\FitCameraAndRenderTexture.cs" />
+    <Compile Include="Assets\Tarodev 2D Controller\_Scripts\CleaningController.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\PlayerController.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\PlayerWindow.cs" />
     <Compile Include="Assets\Assets\Scripts\MainCameraMouseTracker.cs" />

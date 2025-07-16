@@ -8,21 +8,39 @@ public class LevelController : MonoBehaviour
 
     public bool isDraggingWindows = false;
 
+    private List<Window> allWindows = new List<Window>();
+
     private void Awake()
     {
         Instance = this;
-    }       
+
+        Window[] findWindows = FindObjectsOfType<Window>(true); 
+        allWindows.AddRange(findWindows);
+    }
 
     private void Update()
     {
         if (Player.Instance.CurrentWindow == null) return;
-        if (!Player.Instance.IsGrounded || Player.Instance.IsMoving) 
+
+        if (!Player.Instance.IsGrounded || Player.Instance.IsMoving)
         {
             Player.Instance.CurrentWindow.canDrag = false;
-        } else
+        }
+        else
         {
             Player.Instance.CurrentWindow.canDrag = true;
         }
     }
 
+    public void PlayerDie()
+    {
+        foreach (Window window in allWindows)
+        {
+            CleaningController cleaner = window.GetComponent<CleaningController>();
+            if (cleaner != null)
+            {
+                cleaner.ResetWindow();
+            }
+        }
+    }
 }

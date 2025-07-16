@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public PlayerController Controller { get; private set; }
     public PlayerWindow Window { get; private set; }
 
+
     public bool IsGrounded => Controller != null && Controller._grounded;
     public bool IsMoving => Controller != null && Controller.FrameInput.x != 0;
 
@@ -49,8 +50,14 @@ public class Player : MonoBehaviour
     {
         if (transform.position.y < -22f && CurrentWindow == null)
         {
-            Controller.SpawnPlayer();
-            transform.position = spawnPoint.position;
-        }
+            Die();
+        }   
+    }
+
+    private void Die()
+    {
+        transform.position = spawnPoint.position;
+        Controller.SpawnPlayer();
+        LevelController.Instance.PlayerDie();
     }
 }

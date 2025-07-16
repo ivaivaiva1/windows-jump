@@ -4,6 +4,12 @@ using UnityEngine.UI;
 
 public class Window : MonoBehaviour
 {
+
+    public bool Clean = false;
+    public bool isCleaning = false;
+    public CleaningController cleaningController;
+
+
     public int Order;
     private int initialOrder;
     private List<BoxCollider2D> childBoxColliders = new();
@@ -19,6 +25,7 @@ public class Window : MonoBehaviour
 
     private void Awake()
     {
+        cleaningController = GetComponent<CleaningController>();
         PopulateColliders();
         rawImage = GetComponentInChildren<RawImage>(includeInactive: true);
         initialOrder = Order;
@@ -113,4 +120,5 @@ public class Window : MonoBehaviour
         if (canvas != null)
             canvas.sortingOrder = order;
     }
+
 }
