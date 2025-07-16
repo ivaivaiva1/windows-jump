@@ -69,23 +69,28 @@ public class DisableWindowsController : MonoBehaviour
             Window window = disabledWindows[i];
             Bounds boundsA = GetExpandedBounds(window);
 
-            bool isTouching = false;
+            bool isTouchingActiveWindow = false;
 
             foreach (var otherWindow in allWindows)
             {
                 if (otherWindow == window)
                     continue;
 
+                // Ignorar janelas desativadas
+                if (!otherWindow.isAlive)
+                    continue;
+
                 Bounds boundsB = GetBounds(otherWindow);
 
                 if (boundsA.Intersects(boundsB))
                 {
-                    isTouching = true;
+                    isTouchingActiveWindow = true;
                     break;
                 }
             }
 
-            if (!isTouching)
+            // Se não estiver tocando nenhuma janela ativa, pode reviver
+            if (!isTouchingActiveWindow)
             {
                 window.ReviveWindow();
                 disabledWindows.RemoveAt(i);
