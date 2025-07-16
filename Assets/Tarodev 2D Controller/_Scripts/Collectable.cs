@@ -13,6 +13,7 @@ public class Collectable : MonoBehaviour
     {
         gameObject.SetActive(false);
         isCollected = true;
+        thisWindow.IamCollected();
     }
 
     public void ResetCollectable()

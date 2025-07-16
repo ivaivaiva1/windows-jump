@@ -39,7 +39,7 @@ public class CleaningController : MonoBehaviour
         leftItems = collectables.Count;
     }
 
-    public void InCollected()
+    public void IamCollected()
     {
         cleaningItems = 0;
         leftItems = 0;

@@ -60,4 +60,16 @@ public class Player : MonoBehaviour
         Controller.SpawnPlayer();
         LevelController.Instance.PlayerDie();
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            Collectable collectable = other.GetComponent<Collectable>();
+            if (collectable != null)
+            {
+                collectable.setCollected();
+            }
+        }
+    }
 }

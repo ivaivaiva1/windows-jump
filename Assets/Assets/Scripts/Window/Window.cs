@@ -14,6 +14,8 @@ public class Window : MonoBehaviour
     private int initialOrder;
     private List<BoxCollider2D> childBoxColliders = new();
     public List<Collider2D> windowsInContact = new();
+    [SerializeField] private LayerMask targetLayerMask;
+
 
     public bool canDrag = true;
     public bool dragging = false;
@@ -25,8 +27,9 @@ public class Window : MonoBehaviour
 
     private void Awake()
     {
-        cleaningController = GetComponent<CleaningController>();
+        SetLayerToChildren();
         PopulateColliders();
+        cleaningController = GetComponent<CleaningController>();
         rawImage = GetComponentInChildren<RawImage>(includeInactive: true);
         initialOrder = Order;
     }
@@ -121,4 +124,18 @@ public class Window : MonoBehaviour
             canvas.sortingOrder = order;
     }
 
+    private void SetLayerToChildren()
+    {
+        int layerIndex = Mathf.RoundToInt(Mathf.Log(targetLayerMask.value, 2));
+
+        foreach (Transform child in GetComponentsInChildren<Transform>(includeInactive: true))
+        {
+            // Ignora se o objeto tiver Canvas ou RawImage
+            if (child != this.transform) continue;
+            if (child.GetComponent<Canvas>() != null) continue;
+            if (child.GetComponent<RawImage>() != null) continue;
+
+            child.gameObject.layer = layerIndex;
+        }
+    }
 }

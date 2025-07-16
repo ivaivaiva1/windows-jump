@@ -63,18 +63,18 @@
     <Compile Include="Assets\Assets\Scripts\DisableWindowsController.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\Player.cs" />
     <Compile Include="Assets\Assets\Scripts\Trampoline.cs" />
+    <Compile Include="Assets\Assets\Scripts\Window\FitCameraAndRenderTexture.cs" />
+    <Compile Include="Assets\Assets\Scripts\Window\MatchRawImageToSprite.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\Collectable.cs" />
+    <Compile Include="Assets\Assets\Scripts\Window\Window.cs" />
     <Compile Include="Assets\Assets\Scripts\LevelController.cs" />
-    <Compile Include="Assets\Assets\Scripts\FitCameraAndRenderTexture.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\CleaningController.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\PlayerController.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\PlayerWindow.cs" />
     <Compile Include="Assets\Assets\Scripts\MainCameraMouseTracker.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\ScriptableStats.cs" />
-    <Compile Include="Assets\Assets\Scripts\MatchRawImageToSprite.cs" />
     <Compile Include="Assets\Assets\Scripts\WindowsLayerController.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\PlayerAnimator.cs" />
-    <Compile Include="Assets\Assets\Scripts\Window.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Assets\Sprites\Free Pixel Art Forest\Free Pixel Art Forest\changelog.txt" />
