@@ -4,18 +4,15 @@ using UnityEngine.UI;
 
 public class Window : MonoBehaviour
 {
-
     public bool Clean = false;
     public bool isCleaning = false;
     public CleaningController cleaningController;
-
 
     public int Order;
     private int initialOrder;
     private List<BoxCollider2D> childBoxColliders = new();
     public List<Collider2D> windowsInContact = new();
     [SerializeField] private LayerMask targetLayerMask;
-
 
     public bool canDrag = true;
     public bool dragging = false;
@@ -38,6 +35,7 @@ public class Window : MonoBehaviour
     {
         if (!canDrag)
         {
+            if (dragging) print($"{name}: Parou de arrastar porque canDrag == false");
             if (dragging) dragging = false;
             LevelController.Instance.isDraggingWindows = false;
             return;
@@ -45,6 +43,7 @@ public class Window : MonoBehaviour
 
         if (dragging)
         {
+            print($"{name}: Arrastando...");
             Vector3 mouseWorldPos = MainCameraMouseTracker.Instance.MouseWorldPosition;
             transform.position = mouseWorldPos + offset;
         }
@@ -52,12 +51,21 @@ public class Window : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!canDrag) return;
+        print($"{name}: OnMouseDown chamado");
+
+        if (!canDrag)
+        {
+            print($"{name}: canDrag == false, não vai arrastar");
+            return;
+        }
 
         Vector3 clickWorldPos = MainCameraMouseTracker.Instance.MouseWorldPosition;
         offset = transform.position - clickWorldPos;
+
         WindowsLayerController.Instance.SetWindowAsTop(this);
         dragging = true;
+
+        print($"{name}: Começou a arrastar");
         LevelController.Instance.isDraggingWindows = true;
     }
 
@@ -113,12 +121,10 @@ public class Window : MonoBehaviour
     {
         Order = order;
 
-        // Sprite
         SpriteRenderer sprite = transform.GetComponent<SpriteRenderer>();
         if (sprite != null)
             sprite.sortingOrder = order;
 
-        // Canvas
         Canvas canvas = GetComponentInChildren<Canvas>(includeInactive: true);
         if (canvas != null)
             canvas.sortingOrder = order;
@@ -130,8 +136,7 @@ public class Window : MonoBehaviour
 
         foreach (Transform child in GetComponentsInChildren<Transform>(includeInactive: true))
         {
-            // Ignora se o objeto tiver Canvas ou RawImage
-            if (child != this.transform) continue;
+            if (child == this.transform) continue; 
             if (child.GetComponent<Canvas>() != null) continue;
             if (child.GetComponent<RawImage>() != null) continue;
 
