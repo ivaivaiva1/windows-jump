@@ -18,8 +18,7 @@ public class PlayerWindow : MonoBehaviour
             Window window = collision.GetComponent<Window>();
             if (window != null && window.isAlive)
             {
-                transform.SetParent(collision.transform);
-                Player.Instance.SetCurrentWindow(collision.gameObject);
+                SetWindowParent(window);
             }
         }
     }
@@ -45,8 +44,7 @@ public class PlayerWindow : MonoBehaviour
                     Window window = col.GetComponent<Window>();
                     if (window != null && window.isAlive)
                     {
-                        transform.SetParent(col.transform);
-                        Player.Instance.SetCurrentWindow(col.gameObject);
+                        SetWindowParent(window);
                         break;
                     }
                 }
@@ -74,5 +72,12 @@ public class PlayerWindow : MonoBehaviour
         }
 
         return windows.ToArray();
+    }
+
+    private void SetWindowParent(Window newWindow)
+    {
+        transform.SetParent(newWindow.transform);
+        Player.Instance.SetCurrentWindow(newWindow.gameObject);
+        WindowsLayerController.Instance.SetPlayerOrder(newWindow);
     }
 }

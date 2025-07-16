@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WindowsLayerController : MonoBehaviour
 {
@@ -9,11 +10,14 @@ public class WindowsLayerController : MonoBehaviour
     [SerializeField] private int step = 10;
     [SerializeField] private List<Window> allWindows = new();
 
+    private Canvas playerCanvas;
+
     private void Awake()
     {
         Instance = this;
 
         allWindows = new List<Window>(FindObjectsOfType<Window>(includeInactive: true));
+        playerCanvas = GameObject.Find("PlayerCanvas")?.GetComponent<Canvas>();
 
         int currentOrder = startingOrder;
 
@@ -24,6 +28,7 @@ public class WindowsLayerController : MonoBehaviour
             currentOrder -= step;
         }
     }
+
 
     public void SetWindowAsTop(Window targetWindow)
     {
@@ -39,6 +44,21 @@ public class WindowsLayerController : MonoBehaviour
             }
 
             window.SetOrderInLayer(window.Order);
+
+            if (Player.Instance.CurrentWindow == window && playerCanvas != null)
+            {
+                int newOrder = window.Order + 1;
+                playerCanvas.sortingOrder = newOrder;
+            }
+        }
+    }
+
+    public void SetPlayerOrder(Window window)
+    {
+        if (playerCanvas != null)
+        {
+            int newOrder = window.Order + 1;
+            playerCanvas.sortingOrder = newOrder;
         }
     }
 }
