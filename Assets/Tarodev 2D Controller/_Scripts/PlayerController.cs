@@ -36,7 +36,23 @@ namespace TarodevController
             _col = GetComponent<CapsuleCollider2D>();
 
             _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
-            
+            SpawnPlayer();
+        }
+
+        public void SpawnPlayer()
+        {
+            _rb.velocity = Vector2.zero;
+            _frameVelocity = Vector2.zero;
+            _frameInput = new FrameInput();
+
+            _jumpToConsume = false;
+            _bufferedJumpUsable = false;
+            _endedJumpEarly = false;
+            _coyoteUsable = false;
+            _timeJumpWasPressed = 0;
+            _time = 0;
+
+            GetComponentInChildren<SpriteRenderer>().flipX = false;
         }
 
         private void Update()
