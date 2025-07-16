@@ -16,6 +16,9 @@ public class PlayerWindow : MonoBehaviour
         if (collision.CompareTag("Window"))
         {
             Window window = collision.GetComponent<Window>();
+
+            if (Player.Instance.CurrentWindow != null && window.dragging) return;
+
             if (window != null && window.isAlive)
             {
                 SetWindowParent(window);
@@ -29,7 +32,8 @@ public class PlayerWindow : MonoBehaviour
         {
             if (transform.parent != null)
             {
-                if (transform.parent == collision.transform)
+                Window collisionWindow = collision.GetComponent<Window>();
+                if (Player.Instance.CurrentWindow == collisionWindow)
                 {
                     transform.SetParent(null);
                     Player.Instance.NullCurrentWindow();

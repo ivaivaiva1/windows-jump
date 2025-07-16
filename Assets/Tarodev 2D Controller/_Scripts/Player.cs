@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 
     public bool IsGrounded => Controller != null && Controller._grounded;
     public bool IsMoving => Controller != null && Controller.FrameInput.x != 0;
+
     public Window CurrentWindow;
 
     private void Awake()
