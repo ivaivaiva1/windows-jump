@@ -15,6 +15,7 @@ public class DisableWindowsController : MonoBehaviour
 
     private void Update()
     {
+        LimitWindowsToBounds();
         CheckForReactivation();
 
         if (!LevelController.Instance.isDraggingWindows)
@@ -97,6 +98,73 @@ public class DisableWindowsController : MonoBehaviour
             }
         }
     }
+
+    private float minX = -36f;
+    private float maxX = 36f;
+    private float minY = -20f;
+    private float maxY = 20f;
+
+    private void LimitWindowsToBounds()
+    {
+        foreach (var window in allWindows)
+        {
+            if (!window.isAlive || !window.dragging) continue;
+
+            Vector3 pos = window.transform.position;
+            bool outOfBounds = false;
+
+            if (pos.x < minX)
+            {
+                pos.x = minX;
+                outOfBounds = true;
+            }
+            else if (pos.x > maxX)
+            {
+                pos.x = maxX;
+                outOfBounds = true;
+            }
+
+            if (pos.y < minY)
+            {
+                pos.y = minY;
+                outOfBounds = true;
+            }
+            else if (pos.y > maxY)
+            {
+                pos.y = maxY;
+                outOfBounds = true;
+            }
+
+            if (outOfBounds)
+            {
+                window.transform.position = pos;
+            }
+        }
+    }
+
+    private void LimitWindowsToScreen()
+    {
+        Camera cam = Camera.main;
+        if (cam == null) return;
+
+        Vector2 screenMin = cam.ViewportToWorldPoint(Vector2.zero);
+        Vector2 screenMax = cam.ViewportToWorldPoint(Vector2.one);
+
+        foreach (var window in allWindows)
+        {
+            if (!window.isAlive) continue;
+
+            Bounds bounds = GetBounds(window);
+            Vector3 pos = window.transform.position;
+            Vector3 size = bounds.extents;
+
+            float clampedX = Mathf.Clamp(pos.x, screenMin.x + size.x, screenMax.x - size.x);
+            float clampedY = Mathf.Clamp(pos.y, screenMin.y + size.y, screenMax.y - size.y);
+
+            window.transform.position = new Vector3(clampedX, clampedY, pos.z);
+        }
+    }
+
 
     private Bounds GetBounds(Window window)
     {
