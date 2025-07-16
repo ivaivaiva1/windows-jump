@@ -75,6 +75,16 @@
     <Compile Include="Assets\Assets\Scripts\Window.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Assets\Sprites\Free Pixel Art Forest\Free Pixel Art Forest\changelog.txt" />
+    <None Include="Assets\Assets\Sprites\Free Pixel Art Forest\Contact.txt" />
+    <None Include="Assets\Assets\Sprites\Free Pixel Art Forest\Free Pixel Art Forest\readme.txt" />
+    <None Include="Assets\Assets\Sprites\Free Pixel Art Forest\license.txt" />
+    <None Include="Assets\Assets\Sprites\Free Pixel Art Forest\readme.txt" />
+    <None Include="Assets\Assets\Sprites\Free Pixel Art Forest\changelog.txt" />
+    <None Include="Assets\Assets\Sprites\Free Pixel Art Forest\Free Pixel Art Forest\Contact.txt" />
+    <None Include="Assets\Assets\Sprites\Free Pixel Art Forest\Free Pixel Art Forest\license.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.62f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
       <Private>False</Private>

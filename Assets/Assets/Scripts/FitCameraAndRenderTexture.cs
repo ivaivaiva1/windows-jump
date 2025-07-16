@@ -6,7 +6,8 @@ public class FitCameraAndRenderTexture : MonoBehaviour
 {
     public SpriteRenderer squareSprite;     // O sprite que define o tamanho da janela
     public RawImage targetRawImage;         // Onde a imagem vai aparecer
-    public int pixelsPerUnit = 100;         // Escala da textura (100 = 100px = 1 unidade)
+    public int pixelsPerUnit = 8;         // Escala da textura (100 = 100px = 1 unidade)
+    public int pixelSnap = 8;              // Múltiplo ideal pro RenderTexture
 
     private Camera cam;
 
@@ -35,13 +36,24 @@ public class FitCameraAndRenderTexture : MonoBehaviour
         else
             cam.orthographicSize = size.y * 0.5f;
 
-        // --- Parte 2: Cria um RenderTexture com a proporção do Square ---
-        int texWidth = Mathf.RoundToInt(size.x * pixelsPerUnit);
-        int texHeight = Mathf.RoundToInt(size.y * pixelsPerUnit);
+        // --- Parte 2: Cria um RenderTexture com proporção e nitidez boas ---
 
-        RenderTexture rt = new RenderTexture(texWidth, texHeight, 16);
-        rt.name = "RT_" + gameObject.name;
+        int texWidth = SnapToPixel(Mathf.RoundToInt(size.x * pixelsPerUnit), pixelSnap);
+        int texHeight = SnapToPixel(Mathf.RoundToInt(size.y * pixelsPerUnit), pixelSnap);
+
+        RenderTexture rt = new RenderTexture(texWidth, texHeight, 16)
+        {
+            name = "RT_" + gameObject.name,
+            filterMode = FilterMode.Point,
+            wrapMode = TextureWrapMode.Clamp
+        };
+
         cam.targetTexture = rt;
         targetRawImage.texture = rt;
+    }
+
+    private int SnapToPixel(int value, int multiple)
+    {
+        return Mathf.CeilToInt(value / (float)multiple) * multiple;
     }
 }
