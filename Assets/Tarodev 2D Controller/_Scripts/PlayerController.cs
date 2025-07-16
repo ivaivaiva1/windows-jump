@@ -39,12 +39,6 @@ namespace TarodevController
             
         }
 
-        private void Start()
-        {
-            LevelController.Instance.Player = this.gameObject;
-            LevelController.Instance.playerController = this;
-        }
-
         private void Update()
         {
             _time += Time.deltaTime;

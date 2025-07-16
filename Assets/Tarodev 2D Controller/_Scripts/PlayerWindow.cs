@@ -19,7 +19,7 @@ public class PlayerWindow : MonoBehaviour
             if (window != null && window.isAlive)
             {
                 transform.SetParent(collision.transform);
-                LevelController.Instance.SetCurrentWindow(collision.gameObject);
+                Player.Instance.SetCurrentWindow(collision.gameObject);
             }
         }
     }
@@ -33,7 +33,7 @@ public class PlayerWindow : MonoBehaviour
                 if (transform.parent == collision.transform)
                 {
                     transform.SetParent(null);
-                    LevelController.Instance.NullCurrentWindow();
+                    Player.Instance.NullCurrentWindow();
                 }
             }
             else
@@ -46,7 +46,7 @@ public class PlayerWindow : MonoBehaviour
                     if (window != null && window.isAlive)
                     {
                         transform.SetParent(col.transform);
-                        LevelController.Instance.SetCurrentWindow(col.gameObject);
+                        Player.Instance.SetCurrentWindow(col.gameObject);
                         break;
                     }
                 }
