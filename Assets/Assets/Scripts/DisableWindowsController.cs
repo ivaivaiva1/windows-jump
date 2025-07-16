@@ -15,11 +15,12 @@ public class DisableWindowsController : MonoBehaviour
 
     private void Update()
     {
+        CheckForReactivation();
+
         if (!LevelController.Instance.isDraggingWindows)
             return;
 
         CheckForDeactivation();
-        CheckForReactivation();
     }
 
     private void CheckForDeactivation()
