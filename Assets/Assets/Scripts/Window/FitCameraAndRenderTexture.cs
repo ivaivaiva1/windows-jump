@@ -6,7 +6,7 @@ public class FitCameraAndRenderTexture : MonoBehaviour
 {
     public SpriteRenderer squareSprite;     // O sprite que define o tamanho da janela
     public RawImage targetRawImage;         // Onde a imagem vai aparecer
-    public int pixelsPerUnit = 8;         // Escala da textura (100 = 100px = 1 unidade)
+    public int pixelsPerUnit = 100;         // Escala da textura (100 = 100px = 1 unidade)
     public int pixelSnap = 8;              // Múltiplo ideal pro RenderTexture
 
     private Camera cam;
