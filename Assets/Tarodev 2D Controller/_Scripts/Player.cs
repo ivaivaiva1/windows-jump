@@ -64,6 +64,7 @@ public class Player : MonoBehaviour
     {
         if (other.CompareTag("Coin"))
         {
+            SoundController.Instance.PlaySfxOneShot("coin");
             Collectable collectable = other.GetComponent<Collectable>();
             if (collectable != null)
             {

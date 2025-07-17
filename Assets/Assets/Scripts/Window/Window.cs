@@ -33,16 +33,23 @@ public class Window : MonoBehaviour
 
     private void Update()
     {
-        if (!canDrag)
-        {
-            if (dragging) print($"{name}: Parou de arrastar porque canDrag == false");
-            if (dragging) dragging = false;
-            LevelController.Instance.isDraggingWindows = false;
-            return;
-        }
+        //if (!canDrag)
+        //{
+        //    if (dragging) print($"{name}: Parou de arrastar porque canDrag == false");
+        //    if (dragging) dragging = false;
+        //    LevelController.Instance.isDraggingWindows = false;
+        //    return;
+        //}
 
         if (dragging)
         {
+            if (!canDrag)
+            {
+                SoundController.Instance.PlaySfxOneShot("cantDrag");
+                dragging = false;
+                LevelController.Instance.isDraggingWindows = false;
+                return;
+            }
             print($"{name}: Arrastando...");
             Vector3 mouseWorldPos = MainCameraMouseTracker.Instance.MouseWorldPosition;
             transform.position = mouseWorldPos + offset;
@@ -55,6 +62,7 @@ public class Window : MonoBehaviour
 
         if (!canDrag)
         {
+            SoundController.Instance.PlaySfxOneShot("cantDrag");
             print($"{name}: canDrag == false, não vai arrastar");
             return;
         }
@@ -62,8 +70,10 @@ public class Window : MonoBehaviour
         Vector3 clickWorldPos = MainCameraMouseTracker.Instance.MouseWorldPosition;
         offset = transform.position - clickWorldPos;
 
+        SoundController.Instance.PlaySfxOneShot("pegarJanela");
         WindowsLayerController.Instance.SetWindowAsTop(this);
         dragging = true;
+        
 
         print($"{name}: Começou a arrastar");
         LevelController.Instance.isDraggingWindows = true;
@@ -71,8 +81,12 @@ public class Window : MonoBehaviour
 
     private void OnMouseUp()
     {
-        dragging = false;
-        LevelController.Instance.isDraggingWindows = false;
+        if (dragging)
+        {
+            SoundController.Instance.PlaySfxOneShot("soltarJanela");
+            dragging = false;
+            LevelController.Instance.isDraggingWindows = false;
+        }
     }
 
     public void KillWindow()

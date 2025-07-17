@@ -19,6 +19,7 @@ public class Foot : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            SoundController.Instance.PlaySfxOneShot("stomp");
             Collectable collectable = other.GetComponent<Collectable>();
             if (collectable != null)
             {
