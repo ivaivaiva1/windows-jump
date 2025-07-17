@@ -6,8 +6,7 @@ public class FitCameraAndRenderTexture : MonoBehaviour
 {
     public SpriteRenderer squareSprite;     // O sprite que define o tamanho da janela
     public RawImage targetRawImage;         // Onde a imagem vai aparecer
-    public int pixelsPerUnit = 100;         // Escala da textura (100 = 100px = 1 unidade)
-    public int pixelSnap = 8;              // Múltiplo ideal pro RenderTexture
+    private int pixelsPerUnit = 512;         // Escala da textura (100 = 100px = 1 unidade)
 
     private Camera cam;
 
@@ -38,22 +37,20 @@ public class FitCameraAndRenderTexture : MonoBehaviour
 
         // --- Parte 2: Cria um RenderTexture com proporção e nitidez boas ---
 
-        int texWidth = SnapToPixel(Mathf.RoundToInt(size.x * pixelsPerUnit), pixelSnap);
-        int texHeight = SnapToPixel(Mathf.RoundToInt(size.y * pixelsPerUnit), pixelSnap);
+        int texWidth = Mathf.RoundToInt(size.x * pixelsPerUnit);
+        int texHeight = Mathf.RoundToInt(size.y * pixelsPerUnit);
 
         RenderTexture rt = new RenderTexture(texWidth, texHeight, 16)
         {
             name = "RT_" + gameObject.name,
             filterMode = FilterMode.Point,
-            wrapMode = TextureWrapMode.Clamp
+            wrapMode = TextureWrapMode.Clamp,
+            useMipMap = false,
+            autoGenerateMips = false,
+            antiAliasing = 1
         };
 
         cam.targetTexture = rt;
         targetRawImage.texture = rt;
-    }
-
-    private int SnapToPixel(int value, int multiple)
-    {
-        return Mathf.CeilToInt(value / (float)multiple) * multiple;
     }
 }
