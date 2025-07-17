@@ -5,15 +5,30 @@ public class SoundController : MonoBehaviour
 {
     public static SoundController Instance { get; private set; }
 
+    public enum SfxType
+    {
+        AgarrandoJanela,
+        MovimentoNegado,
+        Pause,
+        PegandoMoeda,
+        Pulo,
+        QuicandoPlataforma,
+        QuicandoInimigo,
+        SoltandoJanela,
+        SomDoSapo
+    }
+
     [System.Serializable]
     public class SfxEntry
     {
-        public string name;
+        public SfxType type;
         public AudioClip clip;
+        [Range(0, 100)]
+        public int volumePercent = 100;
     }
 
     public List<SfxEntry> sfxList;
-    private Dictionary<string, AudioClip> sfxDict;
+    private Dictionary<SfxType, SfxEntry> sfxDict;
     private AudioSource audioSource;
 
     void Awake()
@@ -21,24 +36,24 @@ public class SoundController : MonoBehaviour
         Instance = this;
         audioSource = GetComponent<AudioSource>();
 
-        // Preenche o dicionário
-        sfxDict = new Dictionary<string, AudioClip>();
+        sfxDict = new Dictionary<SfxType, SfxEntry>();
         foreach (var entry in sfxList)
         {
-            if (!sfxDict.ContainsKey(entry.name))
-                sfxDict.Add(entry.name, entry.clip);
+            if (!sfxDict.ContainsKey(entry.type))
+                sfxDict.Add(entry.type, entry);
         }
     }
 
-    public void PlaySfxOneShot(string soundName)
+    public void PlaySfxOneShot(SfxType type)
     {
-        if (sfxDict.TryGetValue(soundName, out AudioClip clip))
+        if (sfxDict.TryGetValue(type, out SfxEntry entry))
         {
-            audioSource.PlayOneShot(clip);
+            float volume = Mathf.Clamp01(entry.volumePercent / 100f);
+            audioSource.PlayOneShot(entry.clip, volume);
         }
         else
         {
-            Debug.LogWarning($"SFX '{soundName}' não encontrado!");
+            Debug.LogWarning($"SFX '{type}' não encontrado!");
         }
     }
 }

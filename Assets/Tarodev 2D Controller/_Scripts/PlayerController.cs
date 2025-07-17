@@ -167,6 +167,7 @@ namespace TarodevController
 
         private void ExecuteJump()
         {
+            SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.Pulo);
             _endedJumpEarly = false;
             _timeJumpWasPressed = 0;
             _bufferedJumpUsable = false;

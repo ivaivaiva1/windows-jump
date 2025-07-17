@@ -22,6 +22,7 @@ public class Window : MonoBehaviour
 
     private RawImage rawImage;
 
+
     private void Awake()
     {
         SetLayerToChildren();
@@ -45,7 +46,7 @@ public class Window : MonoBehaviour
         {
             if (!canDrag)
             {
-                SoundController.Instance.PlaySfxOneShot("cantDrag");
+                SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.MovimentoNegado);
                 dragging = false;
                 LevelController.Instance.isDraggingWindows = false;
                 return;
@@ -62,7 +63,7 @@ public class Window : MonoBehaviour
 
         if (!canDrag)
         {
-            SoundController.Instance.PlaySfxOneShot("cantDrag");
+            SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.MovimentoNegado);
             print($"{name}: canDrag == false, não vai arrastar");
             return;
         }
@@ -70,7 +71,7 @@ public class Window : MonoBehaviour
         Vector3 clickWorldPos = MainCameraMouseTracker.Instance.MouseWorldPosition;
         offset = transform.position - clickWorldPos;
 
-        SoundController.Instance.PlaySfxOneShot("pegarJanela");
+        SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.AgarrandoJanela);
         WindowsLayerController.Instance.SetWindowAsTop(this);
         dragging = true;
         
@@ -83,7 +84,7 @@ public class Window : MonoBehaviour
     {
         if (dragging)
         {
-            SoundController.Instance.PlaySfxOneShot("soltarJanela");
+            SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.SoltandoJanela);
             dragging = false;
             LevelController.Instance.isDraggingWindows = false;
         }
