@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using TarodevController;
+using UnityEditor.PackageManager.UI;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class LevelController : MonoBehaviour
@@ -42,5 +44,25 @@ public class LevelController : MonoBehaviour
                 cleaner.ResetWindow();
             }
         }
+    }
+
+    public void WindowIsClean(Window window)
+    {
+        window.Clean = true;
+
+        foreach (Window w in allWindows)
+        {
+            if (!w.Clean)
+                return; 
+        }
+
+        Debug.Log("Todas as janelas estão limpas! Próxima fase!");
+        NextLevel();
+    }
+
+    private void NextLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex + 1);
     }
 }

@@ -54,8 +54,9 @@ public class CleaningController : MonoBehaviour
 
         if (leftItems == 0)
         {
-            window.isCleaning = true;
-            window.Clean = true;
+            //window.isCleaning = true;
+            //window.Clean = true;
+            LevelController.Instance.WindowIsClean(window);
         }
     }
 }
