@@ -181,7 +181,13 @@ namespace TarodevController
             _timeJumpWasPressed = 0;
             _bufferedJumpUsable = false;
             _coyoteUsable = false;
-            _frameVelocity.y = force;
+            _frameVelocity.y = 0;
+            _frameVelocity.y += force;
+        }
+
+        public void HorizontalBounce(float force)
+        {
+            _frameVelocity.x = force;
         }
 
         #endregion

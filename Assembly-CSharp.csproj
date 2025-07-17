@@ -68,6 +68,7 @@
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\Collectable.cs" />
     <Compile Include="Assets\Assets\Scripts\Window\Window.cs" />
     <Compile Include="Assets\Assets\Scripts\LevelController.cs" />
+    <Compile Include="Assets\Tarodev 2D Controller\_Scripts\Foot.cs" />
     <Compile Include="Assets\Assets\Scripts\Window\SetPlayerCamera.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\CleaningController.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\PlayerController.cs" />

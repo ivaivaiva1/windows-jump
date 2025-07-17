@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     public PlayerController Controller { get; private set; }
     public PlayerWindow Window { get; private set; }
 
-
     public bool IsGrounded => Controller != null && Controller._grounded;
     public bool IsMoving => Controller != null && Controller.FrameInput.x != 0;
 
@@ -72,4 +71,5 @@ public class Player : MonoBehaviour
             }
         }
     }
+
 }
