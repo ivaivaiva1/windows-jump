@@ -10,7 +10,7 @@ public class Window : MonoBehaviour
 
     public int Order;
     private int initialOrder;
-    private List<BoxCollider2D> childBoxColliders = new();
+    private List<Collider2D> childColliders = new();
     public List<Collider2D> windowsInContact = new();
     [SerializeField] private LayerMask targetLayerMask;
 
@@ -86,7 +86,7 @@ public class Window : MonoBehaviour
             rawImage.color = color;
         }
 
-        foreach (var col in childBoxColliders)
+        foreach (var col in childColliders)
             col.enabled = false;
     }
 
@@ -101,21 +101,22 @@ public class Window : MonoBehaviour
             rawImage.color = color;
         }
 
-        foreach (var col in childBoxColliders)
+        foreach (var col in childColliders)
             col.enabled = true;
     }
 
     private void PopulateColliders()
     {
-        childBoxColliders.Clear();
-        BoxCollider2D[] allBoxColliders = GetComponentsInChildren<BoxCollider2D>(includeInactive: true);
+        childColliders.Clear();
+        Collider2D[] allColliders = GetComponentsInChildren<Collider2D>(includeInactive: true);
 
-        foreach (BoxCollider2D col in allBoxColliders)
+        foreach (Collider2D col in allColliders)
         {
             if (col.gameObject != this.gameObject)
-                childBoxColliders.Add(col);
+                childColliders.Add(col);
         }
     }
+
 
     public void SetOrderInLayer(int order)
     {
