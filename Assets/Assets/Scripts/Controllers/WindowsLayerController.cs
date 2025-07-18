@@ -37,10 +37,12 @@ public class WindowsLayerController : MonoBehaviour
             if (window == targetWindow)
             {
                 window.Order = startingOrder;
+                window.UpdateHeaderSprite(true);
             }
             else
             {
                 window.Order -= step;
+                window.UpdateHeaderSprite(false);
             }
 
             window.SetOrderInLayer(window.Order);

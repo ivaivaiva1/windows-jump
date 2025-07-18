@@ -22,7 +22,6 @@ public class Window : MonoBehaviour
 
     private RawImage rawImage;
 
-
     private void Awake()
     {
         SetLayerToChildren();
@@ -159,4 +158,14 @@ public class Window : MonoBehaviour
             child.gameObject.layer = layerIndex;
         }
     }
+
+
+    [SerializeField] private SpriteRenderer HeaderRenderer;
+    [SerializeField] private Sprite trueHeaderSprite;
+    [SerializeField] private Sprite falseHeaderSprite;
+    public void UpdateHeaderSprite(bool state)
+    {
+        HeaderRenderer.sprite = state ? trueHeaderSprite : falseHeaderSprite;
+    }
+
 }

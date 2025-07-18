@@ -37,6 +37,7 @@ public class LevelController : MonoBehaviour
     {
         foreach (Window window in allWindows)
         {
+            window.UpdateHeaderSprite(false);
             CleaningController cleaner = window.GetComponent<CleaningController>();
             if (cleaner != null)
             {

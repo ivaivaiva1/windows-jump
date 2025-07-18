@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerWindow : MonoBehaviour
 {
+    public bool isVirgin = true;
     private Collider2D col;
 
     private void Awake()
@@ -21,6 +22,12 @@ public class PlayerWindow : MonoBehaviour
 
             if (window != null && window.isAlive)
             {
+                if (isVirgin)
+                {
+                    isVirgin = false;
+                    window.UpdateHeaderSprite(true);
+                }
+
                 SetWindowParent(window);
             }
         }

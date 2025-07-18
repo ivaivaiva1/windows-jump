@@ -5,11 +5,11 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
 
-    public PlayerController Controller { get; private set; }
-    public PlayerWindow Window { get; private set; }
+    public PlayerController playerController { get; private set; }
+    public PlayerWindow playerWindow { get; private set; }
 
-    public bool IsGrounded => Controller != null && Controller._grounded;
-    public bool IsMoving => Controller != null && Controller.FrameInput.x != 0;
+    public bool IsGrounded => playerController != null && playerController._grounded;
+    public bool IsMoving => playerController != null && playerController.FrameInput.x != 0;
 
     public Window CurrentWindow;
 
@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
     {
         Instance = this;
 
-        Controller = GetComponent<PlayerController>();
-        Window = GetComponent<PlayerWindow>();
+        playerController = GetComponent<PlayerController>();
+        playerWindow = GetComponent<PlayerWindow>();
     }
 
     private void Start()
@@ -55,40 +55,9 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        transform.position = spawnPoint.position;
-        Controller.SpawnPlayer();
+        playerWindow.isVirgin = true;
         LevelController.Instance.PlayerDie();
+        playerController.SpawnPlayer();
+        transform.position = spawnPoint.position;
     }
-
-    //private void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    if (other.CompareTag("Coin"))
-    //    {
-    //        SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.PegandoMoeda);
-    //        Collectable collectable = other.GetComponent<Collectable>();
-    //        if (collectable != null)
-    //        {
-    //            collectable.setCollected();
-    //        }
-    //    }
-
-    //    if (other.CompareTag("Enemy"))
-    //    {
-    //        print("encostei na cobra");
-    //        Collectable collectable = other.GetComponent<Collectable>();
-    //        if (collectable != null)
-    //        {
-    //            if(!collectable.isCollected)
-    //            {
-    //                print("cobra n esta coletada, morri :c");
-    //                Die();
-    //            }
-    //            else
-    //            {
-    //                print("ufa, ela tava coletada ja rs");
-    //            }
-    //        }
-    //    }
-    //}
-
 }
