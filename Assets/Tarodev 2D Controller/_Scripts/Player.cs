@@ -53,24 +53,42 @@ public class Player : MonoBehaviour
         }   
     }
 
-    private void Die()
+    public void Die()
     {
         transform.position = spawnPoint.position;
         Controller.SpawnPlayer();
         LevelController.Instance.PlayerDie();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Coin"))
-        {
-            SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.PegandoMoeda);
-            Collectable collectable = other.GetComponent<Collectable>();
-            if (collectable != null)
-            {
-                collectable.setCollected();
-            }
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.CompareTag("Coin"))
+    //    {
+    //        SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.PegandoMoeda);
+    //        Collectable collectable = other.GetComponent<Collectable>();
+    //        if (collectable != null)
+    //        {
+    //            collectable.setCollected();
+    //        }
+    //    }
+
+    //    if (other.CompareTag("Enemy"))
+    //    {
+    //        print("encostei na cobra");
+    //        Collectable collectable = other.GetComponent<Collectable>();
+    //        if (collectable != null)
+    //        {
+    //            if(!collectable.isCollected)
+    //            {
+    //                print("cobra n esta coletada, morri :c");
+    //                Die();
+    //            }
+    //            else
+    //            {
+    //                print("ufa, ela tava coletada ja rs");
+    //            }
+    //        }
+    //    }
+    //}
 
 }

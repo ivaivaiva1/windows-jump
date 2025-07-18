@@ -21,10 +21,10 @@ public class DisableWindowsController : MonoBehaviour
         //if (!LevelController.Instance.isDraggingWindows)
         //    return;
 
-        CheckForDeactivation();
+        CheckForDesactivation();
     }
 
-    private void CheckForDeactivation()
+    private void CheckForDesactivation()
     {
         foreach (var draggingWindow in allWindows)
         {

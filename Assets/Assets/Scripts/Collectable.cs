@@ -11,9 +11,10 @@ public class Collectable : MonoBehaviour
 
     public void setCollected()
     {
-        gameObject.SetActive(false);
+        print("sou a cobra e fui coletada...");
         isCollected = true;
         thisWindow.IamCollected();
+        gameObject.SetActive(false);  
     }
 
     public void ResetCollectable()

@@ -19,13 +19,14 @@ public class Foot : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.QuicandoInimigo);
             Collectable collectable = other.GetComponent<Collectable>();
             if (collectable != null)
             {
                 collectable.setCollected();
+                print("pisei na cobra e matei ela");
             }
 
+            SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.QuicandoInimigo);
             float horizontalForce = GetHorizontalBounceForce(other.transform.position.x);
             playerController.HorizontalBounce(horizontalForce);
             playerController.Bounce(BounceForce);
