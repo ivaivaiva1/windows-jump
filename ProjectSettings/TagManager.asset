@@ -44,3 +44,36 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Window_1
+    uniqueID: 2717578135
+    locked: 0
+  - name: Window_2
+    uniqueID: 1205794567
+    locked: 0
+  - name: Window_3
+    uniqueID: 3350145289
+    locked: 0
+  - name: Window_4
+    uniqueID: 2849422867
+    locked: 0
+  - name: Window_5
+    uniqueID: 3876132267
+    locked: 0
+  - name: Window_6
+    uniqueID: 2127385521
+    locked: 0
+  - name: Window_7
+    uniqueID: 1839450763
+    locked: 0
+  - name: Window_8
+    uniqueID: 3828453381
+    locked: 0
+  - name: Window_9
+    uniqueID: 4115745511
+    locked: 0
+  - name: Window_10
+    uniqueID: 2669661591
+    locked: 0
+  - name: Window_11
+    uniqueID: 686202069
+    locked: 0

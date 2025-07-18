@@ -66,10 +66,13 @@
     <Compile Include="Assets\Assets\Scripts\Window\FitCameraAndRenderTexture.cs" />
     <Compile Include="Assets\Assets\Scripts\Controllers\DisableWindowsController.cs" />
     <Compile Include="Assets\Assets\Scripts\Controllers\WindowsLayerController.cs" />
+    <Compile Include="Assets\EasyParallax\MovementSpeedType.cs" />
+    <Compile Include="Assets\EasyParallax\SpriteMovement.cs" />
     <Compile Include="Assets\Assets\Scripts\Window\Window.cs" />
     <Compile Include="Assets\Assets\Scripts\Collectable.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\Foot.cs" />
     <Compile Include="Assets\Assets\Scripts\Controllers\SoundController.cs" />
+    <Compile Include="Assets\EasyParallax\SpriteDuplicator.cs" />
     <Compile Include="Assets\Assets\Scripts\Window\CleaningController.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\PlayerController.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\PlayerWindow.cs" />
@@ -103,6 +106,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\EasyParallax\Readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>

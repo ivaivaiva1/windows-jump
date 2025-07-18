@@ -1,34 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class WindowsLayerController : MonoBehaviour
 {
     public static WindowsLayerController Instance { get; private set; }
 
-    [SerializeField] private int startingOrder = 100;
-    [SerializeField] private int step = 10;
+    [SerializeField] private int maxSortingLayers = 5;
+    [SerializeField] private string sortingLayerPrefix = "Window_";
     [SerializeField] private List<Window> allWindows = new();
-
-    private Canvas playerCanvas;
 
     private void Awake()
     {
         Instance = this;
 
         allWindows = new List<Window>(FindObjectsOfType<Window>(includeInactive: true));
-        playerCanvas = GameObject.Find("PlayerCanvas")?.GetComponent<Canvas>();
 
-        int currentOrder = startingOrder;
-
-        foreach (var window in allWindows)
+        for (int i = 0; i < allWindows.Count; i++)
         {
-            window.Order = currentOrder;
-            window.SetOrderInLayer(currentOrder);
-            currentOrder -= step;
+            int layerIndex = Mathf.Clamp(i + 1, 1, maxSortingLayers);
+            SetWindowSortingLayer(allWindows[i], layerIndex);
+            allWindows[i].Order = layerIndex;
         }
     }
-
 
     public void SetWindowAsTop(Window targetWindow)
     {
@@ -36,31 +29,56 @@ public class WindowsLayerController : MonoBehaviour
         {
             if (window == targetWindow)
             {
-                window.Order = startingOrder;
+                SetWindowSortingLayer(window, maxSortingLayers);
+                window.Order = maxSortingLayers;
                 window.UpdateHeaderSprite(true);
             }
             else
             {
-                window.Order -= step;
+                int newLayerIndex = Mathf.Clamp(window.Order - 1, 1, maxSortingLayers - 1);
+                SetWindowSortingLayer(window, newLayerIndex);
+                window.Order = newLayerIndex;
                 window.UpdateHeaderSprite(false);
             }
+        }
+    }
 
-            window.SetOrderInLayer(window.Order);
+    private void SetWindowSortingLayer(Window window, int layerIndex)
+    {
+        string layerName = sortingLayerPrefix + layerIndex;
 
-            if (Player.Instance.CurrentWindow == window && playerCanvas != null)
-            {
-                int newOrder = window.Order + 1;
-                playerCanvas.sortingOrder = newOrder;
-            }
+        var renderers = window.GetComponentsInChildren<Renderer>(includeInactive: true);
+        foreach (var r in renderers)
+        {
+            r.sortingLayerName = layerName;
+        }
+
+        var canvases = window.GetComponentsInChildren<Canvas>(includeInactive: true);
+        foreach (var c in canvases)
+        {
+            c.sortingLayerName = layerName;
         }
     }
 
     public void SetPlayerOrder(Window window)
     {
-        if (playerCanvas != null)
+        if (Player.Instance == null)
+            return;
+
+        string playerSortingLayer = sortingLayerPrefix + window.Order;
+
+        // Aplica ao renderer do jogador
+        var renderers = Player.Instance.GetComponentsInChildren<Renderer>(includeInactive: true);
+        foreach (var r in renderers)
         {
-            int newOrder = window.Order + 1;
-            playerCanvas.sortingOrder = newOrder;
+            r.sortingLayerName = playerSortingLayer;
+        }
+
+        // Se o jogador usar Canvas (ex: barra de vida)
+        var canvases = Player.Instance.GetComponentsInChildren<Canvas>(includeInactive: true);
+        foreach (var c in canvases)
+        {
+            c.sortingLayerName = playerSortingLayer;
         }
     }
 }
