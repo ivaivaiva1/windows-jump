@@ -25,6 +25,8 @@ public class LevelController : MonoBehaviour
 
         if (!Player.Instance.IsGrounded || Player.Instance.IsMoving)
         {
+            print("gounded: " + Player.Instance.IsGrounded);
+            print("isMoving: " + Player.Instance.IsMoving);
             Player.Instance.CurrentWindow.canDrag = false;
         }
         else

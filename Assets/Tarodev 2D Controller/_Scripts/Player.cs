@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     public static Player Instance { get; private set; }
 
     public PlayerController playerController { get; private set; }
-    public PlayerWindow playerWindow { get; private set; }
+    [SerializeField] private PlayerWindow playerWindow;
 
     public bool IsGrounded => playerController != null && playerController._grounded;
     public bool IsMoving => playerController != null && playerController.FrameInput.x != 0;
@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
         Instance = this;
 
         playerController = GetComponent<PlayerController>();
-        playerWindow = GetComponent<PlayerWindow>();
     }
 
     private void Start()

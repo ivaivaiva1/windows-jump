@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerWindow : MonoBehaviour
 {
+    public Player player;
     public bool isVirgin = true;
     private Collider2D col;
 
@@ -18,7 +19,7 @@ public class PlayerWindow : MonoBehaviour
         {
             Window window = collision.GetComponent<Window>();
 
-            if (Player.Instance.CurrentWindow != null && window.dragging) return;
+            if (player.CurrentWindow != null && window.dragging) return;
 
             if (window != null && window.isAlive)
             {
@@ -37,13 +38,14 @@ public class PlayerWindow : MonoBehaviour
     {
         if (collision.CompareTag("Window"))
         {
-            if (transform.parent != null)
+            Window actualWindow = player.transform.parent.GetComponent<Window>();
+            if (actualWindow != null)
             {
                 Window collisionWindow = collision.GetComponent<Window>();
-                if (Player.Instance.CurrentWindow == collisionWindow)
+                if (player.CurrentWindow == collisionWindow)
                 {
-                    transform.SetParent(null);
-                    Player.Instance.NullCurrentWindow();
+                    player.transform.SetParent(null);
+                    player.NullCurrentWindow();
                 }
             }
             else
@@ -87,8 +89,8 @@ public class PlayerWindow : MonoBehaviour
 
     private void SetWindowParent(Window newWindow)
     {
-        transform.SetParent(newWindow.transform);
-        Player.Instance.SetCurrentWindow(newWindow.gameObject);
+        player.transform.SetParent(newWindow.transform);
+        player.SetCurrentWindow(newWindow.gameObject);
         WindowsLayerController.Instance.SetPlayerOrder(newWindow);
     }
 }
