@@ -11,6 +11,7 @@ public class Window : MonoBehaviour
     public int Order;
     private int initialOrder;
     private List<Collider2D> childColliders = new();
+    private List<SpriteRenderer> childSpriteRenderers = new();
     public List<Collider2D> windowsInContact = new();
     [SerializeField] private LayerMask targetLayerMask;
 
@@ -26,6 +27,7 @@ public class Window : MonoBehaviour
     {
         SetLayerToChildren();
         PopulateColliders();
+        PopulateSpriteRenderers();
         cleaningController = GetComponent<CleaningController>();
         rawImage = GetComponentInChildren<RawImage>(includeInactive: true);
         initialOrder = Order;
@@ -33,14 +35,6 @@ public class Window : MonoBehaviour
 
     private void Update()
     {
-        //if (!canDrag)
-        //{
-        //    if (dragging) print($"{name}: Parou de arrastar porque canDrag == false");
-        //    if (dragging) dragging = false;
-        //    LevelController.Instance.isDraggingWindows = false;
-        //    return;
-        //}
-
         if (dragging)
         {
             if (!canDrag)
@@ -91,22 +85,40 @@ public class Window : MonoBehaviour
 
     public void KillWindow()
     {
+        float transparencyValue = 0.5f;
         isAlive = false;
 
-        if (rawImage != null)
+        foreach (var sr in childSpriteRenderers)
         {
-            Color color = rawImage.color;
-            color.a = 0.5f;
-            rawImage.color = color;
+            Color color = sr.color;
+            color.a = transparencyValue;
+            sr.color = color;
         }
 
         foreach (var col in childColliders)
             col.enabled = false;
+
+        if(rawImage != null)
+        {
+            Color color = rawImage.color;
+            color.a = transparencyValue;
+            rawImage.color = color;
+        }
     }
 
     public void ReviveWindow()
     {
         isAlive = true;
+
+        foreach (var sr in childSpriteRenderers)
+        {
+            Color color = sr.color;
+            color.a = 1f;
+            sr.color = color;
+        }
+
+        foreach (var col in childColliders)
+            col.enabled = true;
 
         if (rawImage != null)
         {
@@ -114,10 +126,8 @@ public class Window : MonoBehaviour
             color.a = 1f;
             rawImage.color = color;
         }
-
-        foreach (var col in childColliders)
-            col.enabled = true;
     }
+
 
     private void PopulateColliders()
     {
@@ -128,6 +138,18 @@ public class Window : MonoBehaviour
         {
             if (col.gameObject != this.gameObject)
                 childColliders.Add(col);
+        }
+    }
+
+    private void PopulateSpriteRenderers()
+    {
+        childSpriteRenderers.Clear();
+        SpriteRenderer[] allSprites = GetComponentsInChildren<SpriteRenderer>(includeInactive: true);
+
+        foreach (SpriteRenderer sr in allSprites)
+        {
+            if (sr.gameObject != this.gameObject)
+                childSpriteRenderers.Add(sr);
         }
     }
 
