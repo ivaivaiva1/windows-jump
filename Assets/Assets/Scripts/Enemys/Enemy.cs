@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
     private Collectable collectable;
     private Collider2D col;
-    private SpriteRenderer sprite;
+    private List<SpriteRenderer> sprites = new List<SpriteRenderer>();
 
     private void Awake()
     {
         collectable = GetComponent<Collectable>();
         col = GetComponent<Collider2D>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
+        sprites.AddRange(GetComponentsInChildren<SpriteRenderer>());
     }
 
     public void EnemyCollect()
@@ -21,7 +20,11 @@ public class Enemy : MonoBehaviour
         collectable.isCollected = true;
         collectable.thisWindow.IamCollected();
         col.enabled = false;
-        sprite.enabled = false;
+
+        foreach (var spr in sprites)
+        {
+            spr.enabled = false;
+        }
     }
 
     public void EnemyReset()
@@ -29,7 +32,10 @@ public class Enemy : MonoBehaviour
         collectable.gameObject.SetActive(true);
         collectable.isCollected = false;
         col.enabled = true;
-        sprite.enabled = true;
-    }
 
+        foreach (var spr in sprites)
+        {
+            spr.enabled = true;
+        }
+    }
 }

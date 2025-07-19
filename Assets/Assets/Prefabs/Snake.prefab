@@ -200,6 +200,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8989511920807095024}
   - component: {fileID: 7144805759562502023}
+  - component: {fileID: 517916975645198507}
+  - component: {fileID: 2821792703712758665}
   - component: {fileID: 3646865202058749725}
   - component: {fileID: 619798290167963297}
   m_Layer: 0
@@ -238,7 +240,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a69065067c0e34388b8aa595765d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisWindow: {fileID: 0}
   isCollected: 0
+--- !u!114 &517916975645198507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6504269919929637193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297dfd76e6704174bbe37b8f6c9a892c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2821792703712758665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6504269919929637193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 544cc228d13d06648a20a4e61a0f0a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveVertical: 0
+  distance: 0.5
+  loopDuration: 5
+  needFlip: 0
+  easeType: 7
 --- !u!58 &3646865202058749725
 CircleCollider2D:
   m_ObjectHideFlags: 0
