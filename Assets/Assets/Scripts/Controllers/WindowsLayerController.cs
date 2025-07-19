@@ -23,6 +23,23 @@ public class WindowsLayerController : MonoBehaviour
         }
     }
 
+    private void SetWindowSortingLayer(Window window, int layerIndex)
+    {
+        string layerName = sortingLayerPrefix + layerIndex;
+
+        var renderers = window.GetComponentsInChildren<Renderer>(includeInactive: true);
+        foreach (var r in renderers)
+        {
+            r.sortingLayerName = layerName;
+        }
+
+        var canvases = window.GetComponentsInChildren<Canvas>(includeInactive: true);
+        foreach (var c in canvases)
+        {
+            c.sortingLayerName = layerName;
+        }
+    }
+
     public void SetWindowAsTop(Window targetWindow)
     {
         foreach (var window in allWindows)
@@ -40,23 +57,6 @@ public class WindowsLayerController : MonoBehaviour
                 window.Order = newLayerIndex;
                 window.UpdateHeaderSprite(false);
             }
-        }
-    }
-
-    private void SetWindowSortingLayer(Window window, int layerIndex)
-    {
-        string layerName = sortingLayerPrefix + layerIndex;
-
-        var renderers = window.GetComponentsInChildren<Renderer>(includeInactive: true);
-        foreach (var r in renderers)
-        {
-            r.sortingLayerName = layerName;
-        }
-
-        var canvases = window.GetComponentsInChildren<Canvas>(includeInactive: true);
-        foreach (var c in canvases)
-        {
-            c.sortingLayerName = layerName;
         }
     }
 

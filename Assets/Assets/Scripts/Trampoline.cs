@@ -11,10 +11,19 @@ public class Trampoline : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            var player = collision.GetComponent<PlayerController>();
+            var player = collision.GetComponent<Player>();
             if (player != null)
             {
-                player.Bounce(bounceForce);
+                if (player.CurrentWindow.dragging)
+                {
+                    return;
+                }
+            }
+
+            var playerController = collision.GetComponent<PlayerController>();
+            if (playerController != null)
+            {
+                playerController.Bounce(bounceForce);
             }
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Collectable : MonoBehaviour
 {
 
-    private CleaningController thisWindow;
+    public CleaningController thisWindow;
     public bool isCollected = false;
    
 

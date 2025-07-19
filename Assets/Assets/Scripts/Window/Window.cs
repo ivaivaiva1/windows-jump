@@ -13,7 +13,7 @@ public class Window : MonoBehaviour
     private List<Collider2D> childColliders = new();
     private List<SpriteRenderer> childSpriteRenderers = new();
     public List<Collider2D> windowsInContact = new();
-    [SerializeField] private LayerMask targetLayerMask;
+    private int targetSortingLayer;
 
     public bool canDrag = true;
     public bool dragging = false;
@@ -25,7 +25,7 @@ public class Window : MonoBehaviour
 
     private void Awake()
     {
-        SetLayerToChildren();
+        //SetOrderingLayerToChildren();
         PopulateColliders();
         PopulateSpriteRenderers();
         cleaningController = GetComponent<CleaningController>();
@@ -154,32 +154,32 @@ public class Window : MonoBehaviour
     }
 
 
-    public void SetOrderInLayer(int order)
-    {
-        Order = order;
+    //public void SetOrderInLayer(int order)
+    //{
+    //    Order = order;
 
-        SpriteRenderer sprite = transform.GetComponent<SpriteRenderer>();
-        if (sprite != null)
-            sprite.sortingOrder = order;
+    //    SpriteRenderer sprite = transform.GetComponent<SpriteRenderer>();
+    //    if (sprite != null)
+    //        sprite.sortingOrder = order;
 
-        Canvas canvas = GetComponentInChildren<Canvas>(includeInactive: true);
-        if (canvas != null)
-            canvas.sortingOrder = order;
-    }
+    //    Canvas canvas = GetComponentInChildren<Canvas>(includeInactive: true);
+    //    if (canvas != null)
+    //        canvas.sortingOrder = order;
+    //}
 
-    private void SetLayerToChildren()
-    {
-        int layerIndex = Mathf.RoundToInt(Mathf.Log(targetLayerMask.value, 2));
+    //private void SetOrderingLayerToChildren()
+    //{
+    //    targetSortingLayer = GetComponent<SpriteRenderer>().sortingOrder;
 
-        foreach (Transform child in GetComponentsInChildren<Transform>(includeInactive: true))
-        {
-            if (child == this.transform) continue; 
-            if (child.GetComponent<Canvas>() != null) continue;
-            if (child.GetComponent<RawImage>() != null) continue;
+    //    foreach (Transform child in GetComponentsInChildren<Transform>(includeInactive: true))
+    //    {
+    //        if (child == this.transform) continue; 
+    //        if (child.GetComponent<Canvas>() != null) continue;
+    //        if (child.GetComponent<RawImage>() != null) continue;
 
-            child.gameObject.layer = layerIndex;
-        }
-    }
+    //        child.gameObject.GetComponent<SpriteRenderer>().sortingOrder = targetSortingLayer;
+    //    }
+    //}
 
 
     [SerializeField] private SpriteRenderer HeaderRenderer;

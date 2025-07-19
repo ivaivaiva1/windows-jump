@@ -15,6 +15,14 @@ public class PlayerWindow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (player.CurrentWindow != null)
+        {
+            if (player.CurrentWindow.dragging)
+            {
+                return;
+            }
+        }
+
         if (collision.CompareTag("Window"))
         {
             Window window = collision.GetComponent<Window>();
@@ -36,6 +44,14 @@ public class PlayerWindow : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (player.CurrentWindow != null)
+        {
+            if (player.CurrentWindow.dragging)
+            {
+                return;
+            }
+        }
+
         if (collision.CompareTag("Window"))
         {
             Window actualWindow = player.transform.parent.GetComponent<Window>();
