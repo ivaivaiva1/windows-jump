@@ -11,11 +11,13 @@ public class helice : MonoBehaviour
         {
             Enemy enemy = other.GetComponent<Enemy>();
             Collectable collectable = other.GetComponent<Collectable>();
-            if (collectable != null)
+            if(enemy == null || collectable == null)
             {
-                collectable.setCollected();
-                print("pisei na cobra e matei ela");
+                if (enemy == null) enemy = other.GetComponentInParent<Enemy>();
+                if (collectable == null) collectable = other.GetComponentInParent<Collectable>();
             }
+
+            collectable.setCollected();
 
             SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.QuicandoInimigo);
         }
