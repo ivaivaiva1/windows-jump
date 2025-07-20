@@ -11,18 +11,25 @@ public class LevelController : MonoBehaviour
 
     private List<Window> allWindows = new List<Window>();
 
+    private float holdRTime = 0f;
+    private float holdPTime = 0f;
+    private const float holdThreshold = 2f;
+
     private void Awake()
     {
         Instance = this;
 
-        Window[] findWindows = FindObjectsOfType<Window>(true); 
+        Window[] findWindows = FindObjectsOfType<Window>(true);
         allWindows.AddRange(findWindows);
-
-        //Application.targetFrameRate = 60;
-        //QualitySettings.vSyncCount = 0; // Desativa VSync para que o targetFrameRate funcione
     }
 
     private void Update()
+    {
+        HandleDragState();
+        HandleSafetyKeys();
+    }
+
+    private void HandleDragState()
     {
         if (Player.Instance.CurrentWindow == null) return;
 
@@ -33,6 +40,39 @@ public class LevelController : MonoBehaviour
         else
         {
             Player.Instance.CurrentWindow.canDrag = true;
+        }
+    }
+
+    private void HandleSafetyKeys()
+    {
+        // Verifica se R está sendo segurado
+        if (Input.GetKey(KeyCode.R))
+        {
+            holdRTime += Time.deltaTime;
+            if (holdRTime >= holdThreshold)
+            {
+                ReloadScene();
+                holdRTime = 0f;
+            }
+        }
+        else
+        {
+            holdRTime = 0f;
+        }
+
+        // Verifica se P está sendo segurado
+        if (Input.GetKey(KeyCode.P))
+        {
+            holdPTime += Time.deltaTime;
+            if (holdPTime >= holdThreshold)
+            {
+                NextLevel();
+                holdPTime = 0f;
+            }
+        }
+        else
+        {
+            holdPTime = 0f;
         }
     }
 
@@ -56,7 +96,8 @@ public class LevelController : MonoBehaviour
         foreach (Window w in allWindows)
         {
             if (!w.Clean)
-                return; 
+                return;
+
         }
 
         Debug.Log("Todas as janelas estão limpas! Próxima fase!");
@@ -67,5 +108,11 @@ public class LevelController : MonoBehaviour
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex + 1);
+    }
+
+    private void ReloadScene()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 }
