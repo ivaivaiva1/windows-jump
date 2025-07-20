@@ -21,6 +21,7 @@ public class Aviaozinho : MonoBehaviour
     [SerializeField] private Sprite turningRightSprite;
     [SerializeField] private float spriteMomentumThreshold = 5f;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject modelatedSmokePrefab;
 
     [Header("Helice")]
     [SerializeField] private Animator heliceAnimator;
@@ -184,6 +185,14 @@ public class Aviaozinho : MonoBehaviour
 
     public void AviaozinhoMorreu()
     {
+        // Reset Vars
+        rotationMomentum = 0f;
+        currentTurbo = 1f;
+        verticalHoldTime = 0f;
+        currentTurnSpeed = baseTurnSpeed;
+        // ------------------
+
+        SpawnModelatedSmoke();
         LevelController.Instance.PlayerDie();
         transform.position = initialPosition;
         transform.rotation = initialRotation;
@@ -196,4 +205,20 @@ public class Aviaozinho : MonoBehaviour
     {
         AviaozinhoMorreu();
     }
+
+    public void SpawnModelatedSmoke()
+    {
+        Vector3 spawnPosition = transform.position;
+        Vector3 scale = new Vector3(7f, 7f, 1f);
+
+        int orderInLayer = 0;
+        int sortingLayerID = 0;
+
+        orderInLayer = spriteRenderer.sortingOrder;
+        sortingLayerID = spriteRenderer.sortingLayerID;
+
+        GameObject smokeInstance = Instantiate(modelatedSmokePrefab, transform.position, Quaternion.identity);
+        smokeInstance.GetComponent<SmokeModelated>().SmokeSetUp(spawnPosition, scale, orderInLayer, sortingLayerID, null);
+    }
+
 }

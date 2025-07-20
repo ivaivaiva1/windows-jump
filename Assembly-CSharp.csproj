@@ -71,6 +71,7 @@
     <Compile Include="Assets\Assets\Scripts\Controllers\WindowsLayerController.cs" />
     <Compile Include="Assets\EasyParallax\MovementSpeedType.cs" />
     <Compile Include="Assets\EasyParallax\SpriteMovement.cs" />
+    <Compile Include="Assets\Assets\Scripts\Misc\SmokeModelated.cs" />
     <Compile Include="Assets\Assets\Scripts\Window\Window.cs" />
     <Compile Include="Assets\Assets\Scripts\Misc\Smoke.cs" />
     <Compile Include="Assets\Assets\Scripts\Collectable.cs" />
