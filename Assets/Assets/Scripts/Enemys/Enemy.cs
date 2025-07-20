@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public bool startReseting = false;
     private Collectable collectable;
     private Collider2D col;
     private List<SpriteRenderer> sprites = new List<SpriteRenderer>();
+    [SerializeField] private GameObject smoke;
 
     private void Awake()
     {
@@ -25,17 +27,26 @@ public class Enemy : MonoBehaviour
         {
             spr.enabled = false;
         }
+
+        smoke.SetActive(true);
     }
 
     public void EnemyReset()
     {
-        collectable.gameObject.SetActive(true);
+        if (!collectable.isCollected) return;
         collectable.isCollected = false;
-        col.enabled = true;
-
+        startReseting = true;
         foreach (var spr in sprites)
         {
             spr.enabled = true;
         }
+        smoke.SetActive(true);
     }
+
+    public void SmokeIsFinish() 
+    {
+        startReseting = false;
+        col.enabled = true;
+    }
+
 }

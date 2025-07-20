@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Foot : MonoBehaviour
 {
+    [SerializeField] private Player player;
     [SerializeField] private PlayerController playerController;
 
     [SerializeField] private float BounceForce;
@@ -17,8 +18,11 @@ public class Foot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (player.CurrentWindow != null && player.CurrentWindow.dragging) return;
+
         if (other.CompareTag("Enemy"))
         {
+            Enemy enemy = other.GetComponent<Enemy>();
             Collectable collectable = other.GetComponent<Collectable>();
             if (collectable != null)
             {
@@ -27,9 +31,19 @@ public class Foot : MonoBehaviour
             }
 
             SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.QuicandoInimigo);
+
+            Trampoline trampoline = other.GetComponent<Trampoline>();
+            if(trampoline == null) return;
+
             float horizontalForce = GetHorizontalBounceForce(other.transform.position.x);
             playerController.HorizontalBounce(horizontalForce);
-            playerController.Bounce(BounceForce);
+            playerController.Bounce(trampoline.bounceForce, trampoline.holdMultiplier);
+        }
+
+        if (other.CompareTag("Trampoline"))
+        {
+            Trampoline trampoline = other.GetComponent<Trampoline>();
+            playerController.Bounce(trampoline.bounceForce, trampoline.holdMultiplier);
         }
     }
 

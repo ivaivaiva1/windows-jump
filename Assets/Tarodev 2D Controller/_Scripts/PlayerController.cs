@@ -176,13 +176,19 @@ namespace TarodevController
             Jumped?.Invoke();
         }
 
-        public void Bounce(float force)
+        public void Bounce(float force, float holdMultiplier = 1.3f)
         {
-            _endedJumpEarly = false;
+            _endedJumpEarly = true;
             _timeJumpWasPressed = 0;
             _bufferedJumpUsable = false;
             _coyoteUsable = false;
             _frameVelocity.y = 0;
+
+            if (_frameInput.JumpHeld)
+            {
+                force *= holdMultiplier;
+            }
+
             _frameVelocity.y += force;
         }
 
