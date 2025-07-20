@@ -91,16 +91,21 @@ public class Aviaozinho : MonoBehaviour
     private void HandleRotation()
     {
         if (!inputHabilitado) return;
- 
+
         float verticalInput = Input.GetAxisRaw("Vertical");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        // Combina os dois, mas inverte o sinal do horizontal aqui
+        float input = Mathf.Abs(verticalInput) > Mathf.Abs(horizontalInput) ? verticalInput : -horizontalInput;
+
         float turboTurnMultiplier = Mathf.Lerp(1f, rotationTurboMultiplier, (currentTurbo - 1f) / (maxTurboMultiplier - 1f));
 
-        if (verticalInput != 0)
+        if (input != 0)
         {
             verticalHoldTime += Time.deltaTime;
             currentTurnSpeed = (baseTurnSpeed + verticalHoldTime * turnAcceleration) * turboTurnMultiplier;
             currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, baseTurnSpeed, maxTurnSpeed * turboTurnMultiplier);
-            rotationMomentum = verticalInput * currentTurnSpeed;
+            rotationMomentum = input * currentTurnSpeed;
         }
         else
         {
@@ -111,6 +116,8 @@ public class Aviaozinho : MonoBehaviour
 
         transform.Rotate(0f, 0f, rotationMomentum * Time.deltaTime);
     }
+
+
 
     private void MoveForward()
     {
