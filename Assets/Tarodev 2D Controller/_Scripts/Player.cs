@@ -20,6 +20,19 @@ public class Player : MonoBehaviour
         Instance = this;
 
         playerController = GetComponent<PlayerController>();
+
+        if (spawnPoint == null)
+        {
+            GameObject obj = GameObject.Find("PlayerSpawn");
+            if (obj != null)
+            {
+                spawnPoint = obj.transform;
+            }
+            else
+            {
+                Debug.LogWarning("SpawnPoint não encontrado na cena!");
+            }
+        }
     }
 
     private void Start()
