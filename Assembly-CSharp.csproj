@@ -63,7 +63,6 @@
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\Player.cs" />
     <Compile Include="Assets\Assets\Scripts\Enemys\Flying Patrol.cs" />
     <Compile Include="Assets\Assets\Scripts\Controllers\LevelController.cs" />
-    <Compile Include="Assets\Assets\Scripts\Trampoline.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\CollisionHandler.cs" />
     <Compile Include="Assets\Assets\Scripts\Window\FitCameraAndRenderTexture.cs" />
     <Compile Include="Assets\Assets\Scripts\Controllers\DisableWindowsController.cs" />
@@ -77,10 +76,12 @@
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\Foot.cs" />
     <Compile Include="Assets\Assets\Scripts\Controllers\SoundController.cs" />
     <Compile Include="Assets\EasyParallax\SpriteDuplicator.cs" />
+    <Compile Include="Assets\Assets\Scripts\Misc\Trampoline.cs" />
     <Compile Include="Assets\Assets\Scripts\Window\CleaningController.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\PlayerController.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\PlayerWindow.cs" />
     <Compile Include="Assets\Assets\Scripts\MainCameraMouseTracker.cs" />
+    <Compile Include="Assets\Assets\Scripts\Enemys\Fenix.cs" />
     <Compile Include="Assets\Assets\Scripts\Controllers\ParallaxController.cs" />
     <Compile Include="Assets\Assets\Scripts\Window\MatchCanvasToSprite.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\ScriptableStats.cs" />

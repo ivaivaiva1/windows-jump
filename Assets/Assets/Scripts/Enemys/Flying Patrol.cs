@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class FlyingPatrol : MonoBehaviour
 {
@@ -10,12 +11,22 @@ public class FlyingPatrol : MonoBehaviour
     [SerializeField] private Ease easeType;
 
     private Vector3 startLocalPosition;
-    private Transform spriteTransform;
+    private List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
 
     void Start()
     {
         startLocalPosition = transform.localPosition;
-        spriteTransform = transform;
+
+        // Coletar todos os SpriteRenderers que não têm o componente Smoke em si ou em seus pais
+        SpriteRenderer[] allSprites = GetComponentsInChildren<SpriteRenderer>();
+        foreach (var sr in allSprites)
+        {
+            if (sr.GetComponentInParent<Smoke>() == null)
+            {
+                spriteRenderers.Add(sr);
+            }
+        }
+
         StartPatrol();
     }
 
@@ -35,8 +46,9 @@ public class FlyingPatrol : MonoBehaviour
     {
         if (!needFlip || moveVertical) return;
 
-        Vector3 scale = spriteTransform.localScale;
-        scale.x *= -1;
-        spriteTransform.localScale = scale;
+        foreach (var sr in spriteRenderers)
+        {
+            sr.flipX = !sr.flipX;
+        }
     }
 }

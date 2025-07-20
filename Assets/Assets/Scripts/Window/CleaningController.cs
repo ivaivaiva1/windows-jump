@@ -52,6 +52,11 @@ public class CleaningController : MonoBehaviour
                 leftItems++;
         }
 
+        if(leftItems > 0 && window.Clean)
+        {
+            window.Clean = false;
+        }
+
         if (leftItems == 0)
         {
             //window.isCleaning = true;
