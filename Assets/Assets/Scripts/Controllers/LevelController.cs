@@ -31,6 +31,7 @@ public class LevelController : MonoBehaviour
 
     private void HandleDragState()
     {
+        if (Player.Instance == null) return;
         if (Player.Instance.CurrentWindow == null) return;
 
         if (!Player.Instance.IsGrounded || Player.Instance.IsMoving)

@@ -45,7 +45,13 @@ public class DisableWindowsController : MonoBehaviour
 
                 if (draggingBounds.Intersects(otherBounds))
                 {
-                    // Se a janela sendo arrastada for a do player, desativa a outra
+                    if(Player.Instance == null)
+                    {
+                        otherWindow.KillWindow();
+                        disabledWindows.Add(otherWindow);
+                        return;
+                    }
+
                     if (draggingWindow == Player.Instance.CurrentWindow)
                     {
                         otherWindow.KillWindow();

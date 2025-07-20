@@ -44,7 +44,6 @@ public class Window : MonoBehaviour
                 LevelController.Instance.isDraggingWindows = false;
                 return;
             }
-            print($"{name}: Arrastando...");
             Vector3 mouseWorldPos = MainCameraMouseTracker.Instance.MouseWorldPosition;
             transform.position = mouseWorldPos + offset;
         }
@@ -52,12 +51,9 @@ public class Window : MonoBehaviour
 
     private void OnMouseDown()
     {
-        print($"{name}: OnMouseDown chamado");
-
         if (!canDrag)
         {
             SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.MovimentoNegado);
-            print($"{name}: canDrag == false, não vai arrastar");
             return;
         }
 
@@ -69,7 +65,6 @@ public class Window : MonoBehaviour
         dragging = true;
         
 
-        print($"{name}: Começou a arrastar");
         LevelController.Instance.isDraggingWindows = true;
     }
 
