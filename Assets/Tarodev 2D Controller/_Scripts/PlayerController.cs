@@ -19,6 +19,7 @@ namespace TarodevController
         private FrameInput _frameInput;
         private Vector2 _frameVelocity;
         private bool _cachedQueryStartInColliders;
+   
 
         #region Interface
 
@@ -148,6 +149,7 @@ namespace TarodevController
         private bool _jumpToConsume;
         private bool _bufferedJumpUsable;
         private bool _endedJumpEarly;
+        private bool _preventJumpHold;
         private bool _coyoteUsable;
         private float _timeJumpWasPressed;
 
@@ -156,7 +158,7 @@ namespace TarodevController
 
         private void HandleJump()
         {
-            if (!_endedJumpEarly && !_grounded && !_frameInput.JumpHeld && _rb.velocity.y > 0) _endedJumpEarly = true;
+            if (!_endedJumpEarly && !_grounded && !_frameInput.JumpHeld && _rb.velocity.y > 0 && !_preventJumpHold) _endedJumpEarly = true;
 
             if (!_jumpToConsume && !HasBufferedJump) return;
 
@@ -169,6 +171,7 @@ namespace TarodevController
         {
             SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.Pulo);
             _endedJumpEarly = false;
+            _preventJumpHold = false;
             _timeJumpWasPressed = 0;
             _bufferedJumpUsable = false;
             _coyoteUsable = false;
@@ -178,7 +181,8 @@ namespace TarodevController
 
         public void Bounce(float force, float holdMultiplier = 1.3f)
         {
-            _endedJumpEarly = true;
+            _endedJumpEarly = false;
+            _preventJumpHold = true;
             _timeJumpWasPressed = 0;
             _bufferedJumpUsable = false;
             _coyoteUsable = false;

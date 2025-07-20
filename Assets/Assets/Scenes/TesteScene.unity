@@ -1704,7 +1704,7 @@ GameObject:
   - component: {fileID: 334543465}
   m_Layer: 7
   m_Name: trampoline
-  m_TagString: Untagged
+  m_TagString: Trampoline
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1833,8 +1833,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b315fb11d37564eabd137fbb959214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceForce: 42
-  holdMultiplier: 25
+  bounceForce: 30
+  holdMultiplier: 1.2
 --- !u!1 &342447491
 GameObject:
   m_ObjectHideFlags: 0
@@ -8278,7 +8278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b315fb11d37564eabd137fbb959214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceForce: 45
+  bounceForce: 30
   holdMultiplier: 1.2
 --- !u!61 &1373465962
 BoxCollider2D:

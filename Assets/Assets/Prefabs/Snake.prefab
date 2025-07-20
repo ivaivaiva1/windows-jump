@@ -258,8 +258,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startReseting: 0
   smoke: {fileID: 0}
-  bounceForce: 28
-  holdMultiplier: 1.5
 --- !u!114 &-8807705145831054087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b315fb11d37564eabd137fbb959214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceForce: 28
+  bounceForce: 20
   holdMultiplier: 1.5
 --- !u!114 &2821792703712758665
 MonoBehaviour:
