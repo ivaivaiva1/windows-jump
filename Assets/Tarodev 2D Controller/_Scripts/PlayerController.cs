@@ -19,7 +19,9 @@ namespace TarodevController
         private FrameInput _frameInput;
         private Vector2 _frameVelocity;
         private bool _cachedQueryStartInColliders;
-   
+        private float _fallTimer = 0f;
+        private const float MaxFallTime = 10f;
+
 
         #region Interface
 
@@ -59,7 +61,26 @@ namespace TarodevController
         private void Update()
         {
             _time += Time.deltaTime;
+            CheckFallDeath();
             GatherInput();
+        }
+
+        private void CheckFallDeath()
+        {
+            if (!_grounded && _rb.velocity.y < 0)
+            {
+                _fallTimer += Time.fixedDeltaTime;
+
+                if (_fallTimer >= MaxFallTime)
+                {
+                    _fallTimer = 0;
+                    Player.Instance.Die();
+                }
+            }
+            else
+            {
+                _fallTimer = 0f; // Reset se encostar no chão ou parar de cair
+            }
         }
 
         private void GatherInput()
@@ -170,6 +191,7 @@ namespace TarodevController
         private void ExecuteJump()
         {
             SoundController.Instance.PlaySfxOneShot(SoundController.SfxType.Pulo);
+            _fallTimer = 0f;
             _endedJumpEarly = false;
             _preventJumpHold = false;
             _timeJumpWasPressed = 0;
@@ -181,6 +203,7 @@ namespace TarodevController
 
         public void Bounce(float force, float holdMultiplier = 1.3f)
         {
+            _fallTimer = 0f;
             _endedJumpEarly = false;
             _preventJumpHold = true;
             _timeJumpWasPressed = 0;
@@ -199,6 +222,7 @@ namespace TarodevController
 
         public void DodoSpit(float verticalForce, float horizontalForce)
         {
+            _fallTimer = 0f;
             _endedJumpEarly = false;
             _preventJumpHold = true;
             _timeJumpWasPressed = 0;
