@@ -64,6 +64,7 @@
     <Compile Include="Assets\Assets\Scripts\Enemys\Flying Patrol.cs" />
     <Compile Include="Assets\Assets\Scripts\Controllers\LevelController.cs" />
     <Compile Include="Assets\Assets\Scripts\Trampoline.cs" />
+    <Compile Include="Assets\Tarodev 2D Controller\_Scripts\CollisionHandler.cs" />
     <Compile Include="Assets\Assets\Scripts\Window\FitCameraAndRenderTexture.cs" />
     <Compile Include="Assets\Assets\Scripts\Controllers\DisableWindowsController.cs" />
     <Compile Include="Assets\Assets\Scripts\Controllers\WindowsLayerController.cs" />

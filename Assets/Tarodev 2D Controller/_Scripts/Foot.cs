@@ -18,7 +18,10 @@ public class Foot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (player.CurrentWindow != null && player.CurrentWindow.dragging) return;
+        if (player.CurrentWindow != null)
+        {
+            if (player.CurrentWindow.dragging) return;
+        }
 
         if (other.CompareTag("Enemy"))
         {

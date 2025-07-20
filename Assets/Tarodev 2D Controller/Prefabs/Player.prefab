@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3415d04b9705744439059ca4260b75db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 3472841739171322012}
   playerController: {fileID: 1544650614272011792}
   BounceForce: 30
   horizontalBaseForce: 1.5
@@ -306,7 +307,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.33996853, y: 0.37227866}
@@ -323,6 +324,7 @@ GameObject:
   - component: {fileID: 1544650614272011795}
   - component: {fileID: 3472841739171322012}
   - component: {fileID: 1544650614272011792}
+  - component: {fileID: 8256359039381441184}
   - component: {fileID: 1544650614272011793}
   - component: {fileID: 1544650614272011794}
   m_Layer: 6
@@ -378,6 +380,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stats: {fileID: 11400000, guid: 05e6a06c5af93134ab98ff12e2c27265, type: 2}
   _grounded: 0
+--- !u!114 &8256359039381441184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544650614272011804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4478f6f4acbcc4990cd7920ff6925f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &1544650614272011793
 Rigidbody2D:
   serializedVersion: 4

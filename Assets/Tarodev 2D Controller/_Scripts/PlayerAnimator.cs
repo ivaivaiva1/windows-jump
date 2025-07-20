@@ -56,7 +56,7 @@ namespace TarodevController
         private void Update()
         {
             if (_player == null) return;
-
+             
             DetectGroundColor();
 
             HandleSpriteFlip();

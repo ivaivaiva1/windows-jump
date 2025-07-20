@@ -17,6 +17,9 @@ public class LevelController : MonoBehaviour
 
         Window[] findWindows = FindObjectsOfType<Window>(true); 
         allWindows.AddRange(findWindows);
+
+        Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0; // Desativa VSync para que o targetFrameRate funcione
     }
 
     private void Update()
