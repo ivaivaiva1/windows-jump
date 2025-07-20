@@ -73,6 +73,7 @@
     <Compile Include="Assets\Assets\Scripts\Window\Window.cs" />
     <Compile Include="Assets\Assets\Scripts\Misc\Smoke.cs" />
     <Compile Include="Assets\Assets\Scripts\Collectable.cs" />
+    <Compile Include="Assets\Assets\Scripts\Enemys\Dodo.cs" />
     <Compile Include="Assets\Tarodev 2D Controller\_Scripts\Foot.cs" />
     <Compile Include="Assets\Assets\Scripts\Controllers\SoundController.cs" />
     <Compile Include="Assets\EasyParallax\SpriteDuplicator.cs" />

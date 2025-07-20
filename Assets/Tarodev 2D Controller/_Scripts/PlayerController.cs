@@ -196,10 +196,26 @@ namespace TarodevController
             _frameVelocity.y += force;
         }
 
+
+        public void DodoSpit(float verticalForce, float horizontalForce)
+        {
+            _endedJumpEarly = false;
+            _preventJumpHold = true;
+            _timeJumpWasPressed = 0;
+            _bufferedJumpUsable = false;
+            _coyoteUsable = false;
+            _frameVelocity = Vector2.zero;
+
+            _frameVelocity.y += verticalForce;
+            _frameVelocity.x += horizontalForce;
+        }
+
         public void HorizontalBounce(float force)
         {
             _frameVelocity.x = force;
         }
+
+
 
         #endregion
 

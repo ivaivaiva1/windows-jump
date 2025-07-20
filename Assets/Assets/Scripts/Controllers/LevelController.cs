@@ -18,8 +18,8 @@ public class LevelController : MonoBehaviour
         Window[] findWindows = FindObjectsOfType<Window>(true); 
         allWindows.AddRange(findWindows);
 
-        Application.targetFrameRate = 60;
-        QualitySettings.vSyncCount = 0; // Desativa VSync para que o targetFrameRate funcione
+        //Application.targetFrameRate = 60;
+        //QualitySettings.vSyncCount = 0; // Desativa VSync para que o targetFrameRate funcione
     }
 
     private void Update()
@@ -28,8 +28,6 @@ public class LevelController : MonoBehaviour
 
         if (!Player.Instance.IsGrounded || Player.Instance.IsMoving)
         {
-            print("gounded: " + Player.Instance.IsGrounded);
-            print("isMoving: " + Player.Instance.IsMoving);
             Player.Instance.CurrentWindow.canDrag = false;
         }
         else
