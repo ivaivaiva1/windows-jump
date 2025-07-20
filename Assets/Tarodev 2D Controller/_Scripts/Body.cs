@@ -7,14 +7,23 @@ public class Body : MonoBehaviour
 {
 
     [SerializeField] private Player player;
+    [SerializeField] private Aviaozinho aviaozinho;
+
+    private void Awake()
+    {
+        aviaozinho = GetComponent<Aviaozinho>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (player.CurrentWindow != null) 
+        if(player != null)
         {
-            if (player.CurrentWindow.dragging) return;
+            if (player.CurrentWindow != null)
+            {
+                if (player.CurrentWindow.dragging) return;
+            }
         }
-        
+
 
         if (other.CompareTag("Coin"))
         {
@@ -28,7 +37,6 @@ public class Body : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            print("encostei na cobra");
             Collectable enemy = other.GetComponent<Collectable>();
             if (enemy != null)
             {
@@ -52,7 +60,17 @@ public class Body : MonoBehaviour
         if (!enemy.isCollected)
         {
             print("cobra n esta coletada, morri :c");
-            player.Die();
+            if(player != null)
+            {
+                player.Die();
+                yield break;
+            }
+            if(aviaozinho != null)
+            {
+                aviaozinho.AviaozinhoMorreu();
+                yield break;
+            }
+            
         }
         else
         {
