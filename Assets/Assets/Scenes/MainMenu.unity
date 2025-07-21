@@ -856,7 +856,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1539972835}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1606050247}
+        m_TargetAssemblyTypeName: ScenesController, Assembly-CSharp
+        m_MethodName: ReloadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1539972835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1024,6 +1036,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed92d42df93065548b440e6f953aa778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentIndex: 0
+  _nextIndex: 1
+  transition: {fileID: 11400000, guid: 9710edcf009d00943af961dd2a7ca7d3, type: 2}
+  startDelay: 0
 --- !u!114 &1606050248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1206,7 +1222,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1606050247}
         m_TargetAssemblyTypeName: ScenesController, Assembly-CSharp
-        m_MethodName: AdvanceScene
+        m_MethodName: NextScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

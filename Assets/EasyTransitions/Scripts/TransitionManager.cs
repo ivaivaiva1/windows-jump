@@ -136,6 +136,7 @@ namespace EasyTransition
 
             onTransitionCutPointReached?.Invoke();
 
+            if (ScenesController.Instance._currentIndex != sceneIndex) ScenesController.Instance.SetSceneIndex();
             SceneManager.LoadScene(sceneIndex);
 
             yield return new WaitForSecondsRealtime(transitionSettings.destroyTime);

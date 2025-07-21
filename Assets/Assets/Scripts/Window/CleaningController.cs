@@ -29,6 +29,7 @@ public class CleaningController : MonoBehaviour
     {
         window.Clean = false;
         window.isCleaning = false;
+        print("reset window");
 
         foreach (Collectable c in collectables)
         {
