@@ -18,6 +18,12 @@ EditorBuildSettings:
     path: Assets/Assets/Scenes/Level 3.unity
     guid: fac68946db871ba49a5537fb055cefd2
   - enabled: 1
+    path: Assets/Assets/Scenes/Level 6.unity
+    guid: 9970a6c3f3aa9374ebc19a14370ae4c8
+  - enabled: 1
+    path: Assets/Assets/Scenes/Level 5.unity
+    guid: 80a6095ef2ddf0f4aa4638f0b6895c7f
+  - enabled: 1
     path: Assets/Assets/Scenes/NarutoScene.unity
     guid: c8ab9a9da4a4bf248ac436c7940f0b78
   m_configObjects: {}

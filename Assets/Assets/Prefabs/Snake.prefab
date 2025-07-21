@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startReseting: 0
-  smoke: {fileID: 0}
+  smoke: {fileID: 406294707093931124}
 --- !u!114 &-8807705145831054087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,6 +363,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: smoke
       objectReference: {fileID: 0}
+    - target: {fileID: 460420156488855806, guid: c94406a914c3c6a478047c2aa6a6b435, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1961305845852324767, guid: c94406a914c3c6a478047c2aa6a6b435, type: 3}
       propertyPath: m_LocalScale.x
       value: 4.7829967
@@ -420,6 +424,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c94406a914c3c6a478047c2aa6a6b435, type: 3}
+--- !u!1 &406294707093931124 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 460420156488855806, guid: c94406a914c3c6a478047c2aa6a6b435, type: 3}
+  m_PrefabInstance: {fileID: 270443934248219786}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1798970438922729237 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1961305845852324767, guid: c94406a914c3c6a478047c2aa6a6b435, type: 3}
