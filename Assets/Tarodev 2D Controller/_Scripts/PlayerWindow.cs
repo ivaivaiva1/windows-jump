@@ -105,8 +105,8 @@ public class PlayerWindow : MonoBehaviour
 
     private void SetWindowParent(Window newWindow)
     {
-        player.transform.SetParent(newWindow.transform);
-        player.SetCurrentWindow(newWindow.gameObject);
-        WindowsLayerController.Instance.SetPlayerOrder(newWindow);
+        //player.transform.SetParent(newWindow.transform);
+        //player.SetCurrentWindow(newWindow.gameObject);
+        //WindowsLayerController.Instance.SetPlayerOrder(newWindow);
     }
 }

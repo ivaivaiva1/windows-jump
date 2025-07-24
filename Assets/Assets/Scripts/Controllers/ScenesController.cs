@@ -9,6 +9,8 @@ public class ScenesController : MonoBehaviour
 {
     public static ScenesController Instance { get; private set; }
 
+    private bool canLoadNext = true;
+
     public int _currentIndex;
     public int _nextIndex;
 
@@ -47,15 +49,42 @@ public class ScenesController : MonoBehaviour
         //PreloadNextScene();
     }
 
+
     public void NextScene()
     {
-        SceneManager.LoadScene(_nextIndex);
-        _nextIndex += 1;
+        if (!canLoadNext) return;
+
+        StartCoroutine(LoadNextSceneWithDelay());
+    }
+
+    private System.Collections.IEnumerator LoadNextSceneWithDelay()
+    {
+        canLoadNext = false;
+
+    
+
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextIndex = currentIndex + 1;
+
+        if (nextIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextIndex);
+        }
+        else
+        {
+            Debug.LogWarning("Não há mais cenas para carregar.");
+        }
+
+        yield return new WaitForSeconds(1.5f);
+
+        //Se quiser permitir novamente após a troca, descomente a linha abaixo:
+        canLoadNext = true;
     }
 
     public void ReloadScene()
     {
-        SceneManager.LoadScene(_currentIndex);
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentIndex);
     }
 
     public void SetSceneIndex()

@@ -5539,7 +5539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cb91398388eff489d3e41e1f04c920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sky_music: {fileID: 8300000, guid: a364d5fb3926ce8498c09f7a2f112a46, type: 3}
+  sky_music: {fileID: 8300000, guid: 2a1a76006366758498a6603126a3a114, type: 3}
   sfxList:
   - type: 0
     clip: {fileID: 8300000, guid: 4c1b4285035fde645b81b0fc45034dac, type: 3}
